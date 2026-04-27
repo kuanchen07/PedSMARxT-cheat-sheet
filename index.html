@@ -1,95 +1,12 @@
-
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Space+Mono:wght@400;700&display=swap');
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  .outer { background: #ffffff; border: 1px solid #d9d8d0; border-radius: 16px; padding: 2rem; font-family: 'DM Sans', sans-serif; }
-  .header { display: flex; align-items: center; gap: 14px; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid #e8e7e0; }
-  .rx-badge { font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; background: #E1F5EE; color: #085041; padding: 5px 10px; border-radius: 4px; border: 1px solid #5DCAA5; }
-  .header-title { font-family: 'Space Mono', monospace; font-size: 16px; font-weight: 700; color: #1a1a18; letter-spacing: 0.03em; }
-  .header-sub { font-size: 12px; color: #888780; margin-left: auto; font-style: italic; }
-  .section-block + .section-block { margin-top: 1.5rem; }
-  .section-title { font-family: 'Space Mono', monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; color: #1a1a18; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid #e8e7e0; }
-  .divider-dashed { height: 0; border: none; border-top: 1px dashed #c4c2ba; margin: 6px 0 4px; background: none; }
-  .np-section .card, .p-section .card { overflow: visible; }
-  .np-pill-group { display: flex; flex-wrap: wrap; align-content: flex-start; align-items: flex-start; gap: 5px 6px; }
-  .np-pill {
-    display: inline-flex; flex-direction: column; align-items: flex-start; align-self: flex-start;
-    width: max-content; max-width: 100%;
-    font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 4px; border: 1px solid;
-    cursor: pointer; position: relative; transition: box-shadow 0.2s ease; vertical-align: top;
-  }
-  .np-pill.is-open { z-index: 4; box-shadow: 0 4px 14px rgba(0,0,0,0.1); }
-  .np-pill-name { line-height: 1.2; white-space: nowrap; }
-  .np-pill-dose-clip {
-    min-width: 0; max-width: 0; max-height: 0; overflow: hidden;
-    align-self: flex-start;
-    transition: max-width 0.25s ease, max-height 0.25s ease;
-  }
-  .np-pill.is-open .np-pill-dose-clip {
-    max-width: min(18rem, 100vw);
-    max-height: 6rem;
-    overflow-y: auto;
-  }
-  .np-pill-dose {
-    display: block; width: 100%;
-    font-family: 'DM Sans', sans-serif; font-size: 9px; font-weight: 500; line-height: 1.4; color: #3d3d38;
-    margin: 0; white-space: normal; word-wrap: break-word;
-  }
-  .np-pill.is-open .np-pill-dose { margin-top: 2px; }
-  .np-pill.np-teal { background: #E1F5EE; color: #085041; border-color: #5DCAA5; }
-  .np-pill.np-amber { background: #FAEEDA; color: #633806; border-color: #EF9F27; }
-  .np-pill.np-red { background: #FCEBEB; color: #791F1F; border-color: #F09595; }
-  .np-pill.np-blue { background: #E6F1FB; color: #0C447C; border-color: #85B7EB; }
-  .np-pill.np-gray { background: #F1EFE8; color: #444441; border-color: #B4B2A9; }
-  .step-card .np-pill { font-size: 10px; padding: 3px 8px; }
-  .step-card .np-pill .np-pill-name { font-size: 10px; }
-  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-  .card { background: #f9f8f4; border: 1px solid #e8e7e0; border-radius: 10px; overflow: hidden; }
-  .card-head { padding: 10px 14px 9px; border-bottom: 1px solid #e8e7e0; }
-  .sev-label { font-family: 'Space Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2px; }
-  .sev-name { font-family: 'Space Mono', monospace; font-size: 17px; font-weight: 700; }
-  .sev-name-wrap { font-size: 14px; line-height: 1.3; letter-spacing: 0.01em; }
-  .mild .card-head { background: #E1F5EE; border-bottom-color: #5DCAA5; }
-  .mild .sev-label { color: #0F6E56; }
-  .mild .sev-name { color: #085041; }
-  .mod .card-head { background: #FAEEDA; border-bottom-color: #EF9F27; }
-  .mod .sev-label { color: #854F0B; }
-  .mod .sev-name { color: #633806; }
-  .sev .card-head { background: #FCEBEB; border-bottom-color: #E24B4A; }
-  .sev .sev-label { color: #A32D2D; }
-  .sev .sev-name { color: #791F1F; }
-  .card-body { padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; }
-  .sec-label { font-family: 'Space Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #888780; margin-bottom: 5px; }
-  .sec-label span { font-family: 'DM Sans', sans-serif; font-weight: 400; text-transform: none; letter-spacing: 0; font-size: 10px; }
-  .check-row { display: flex; align-items: center; gap: 7px; margin-bottom: 4px; }
-  .check-row:last-child { margin-bottom: 0; }
-  .dot { width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .dot-yes { background: #E1F5EE; border: 1px solid #5DCAA5; }
-  .dot-no { background: #FCEBEB; border: 1px solid #F09595; }
-  .check-text { font-size: 13px; color: #1a1a18; line-height: 1.3; }
-  .check-sub { color: #888780; font-size: 11px; }
-  .divider { height: 1px; background: #e8e7e0; }
-  .pill { display: inline-flex; align-items: center; font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 4px; margin: 2px 3px 0 0; }
-  .p-teal { background: #E1F5EE; color: #085041; border: 1px solid #5DCAA5; }
-  .p-amber { background: #FAEEDA; color: #633806; border: 1px solid #EF9F27; }
-  .p-red { background: #FCEBEB; color: #791F1F; border: 1px solid #F09595; }
-  .p-blue { background: #E6F1FB; color: #0C447C; border: 1px solid #85B7EB; }
-  .p-gray { background: #F1EFE8; color: #444441; border: 1px solid #B4B2A9; }
-  .italic-note { font-size: 11px; color: #888780; font-style: italic; margin-top: 4px; line-height: 1.5; }
-  .org-row { display: flex; align-items: center; gap: 7px; margin-bottom: 5px; }
-  .org-row:last-child { margin-bottom: 0; }
-  .org-drug { font-size: 12px; color: #1a1a18; }
-  .step-card { background: #fff; border: 1px solid #e8e7e0; border-radius: 6px; padding: 7px 9px; margin-bottom: 5px; }
-  .step-card:last-child { margin-bottom: 0; }
-  .step-org { font-family: 'Space Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 4px; }
-  .step-mrsa { color: #791F1F; }
-  .step-mssa { color: #0C447C; }
-  .step-gas { color: #085041; }
-  .step-drugs { display: flex; flex-wrap: wrap; gap: 4px; }
-  .footer { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #e8e7e0; display: flex; align-items: center; justify-content: space-between; }
-  .footer-tag { font-family: 'Space Mono', monospace; font-size: 10px; color: #b4b2a9; letter-spacing: 0.06em; }
-</style>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PedSMARxT — SSTI treatment cheat sheet</title>
+  <link rel="stylesheet" href="./styles/main.css" />
+</head>
+<body>
 <h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">PedSMARxT SSTI treatment cheat sheet — purulent folliculitis and impetigo spectrum, furuncle/abscess cellulitis, and non-purulent cellulitis</h2>
 
 <div class="outer">
@@ -543,3 +460,5 @@
   });
 })();
 </script>
+</body>
+</html>

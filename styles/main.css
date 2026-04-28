@@ -8,6 +8,7 @@
 .section-block + .section-block { margin-top: 1.5rem; }
 /* Partials load into separate #disease-* nodes (not adjacent .section-block siblings) */
 #disease-non-purulent,
+#disease-necrotizing-toxin,
 #disease-preseptal-orbital { margin-top: 2rem; }
 .section-title { font-family: 'Space Mono', monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; color: #1a1a18; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid #e8e7e0; }
 .section-title-row {
@@ -37,8 +38,10 @@
 .section-title--review { color: #a32d2d; }
 .np-section .section-title,
 .po-section .section-title { margin-bottom: 1.25rem; }
+/* NTM: main heading + dual grid; pathway names live on each card head (no duplicate subtitle row) */
+.ntm-section .section-title { margin-bottom: 1rem; }
 .divider-dashed { height: 0; border: none; border-top: 1px dashed #c4c2ba; margin: 6px 0 4px; background: none; }
-.np-section .card, .p-section .card, .po-section .card { overflow: visible; }
+.np-section .card, .ntm-section .card, .p-section .card, .po-section .card { overflow: visible; }
 .np-pill-group { display: flex; flex-wrap: wrap; align-content: flex-start; align-items: flex-start; gap: 5px 6px; }
 .np-pill {
   display: inline-flex; flex-direction: column; align-items: flex-start; align-self: flex-start;
@@ -48,6 +51,19 @@
 }
 .np-pill.is-open { z-index: 4; box-shadow: 0 4px 14px rgba(0,0,0,0.1); }
 .np-pill-name { line-height: 1.2; white-space: nowrap; }
+/* Combination "+" between pills — outside .np-pill borders so it stays visible when doses are collapsed */
+.np-pill-join {
+  align-self: center;
+  flex-shrink: 0;
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: #6e6e68;
+  line-height: 1;
+  user-select: none;
+  padding: 0 2px;
+}
+.step-card .np-pill-join { font-size: 11px; }
 .np-pill-dose-clip {
   min-width: 0; max-width: 0; max-height: 0; overflow: hidden;
   align-self: flex-start;
@@ -69,16 +85,32 @@
 .np-pill.np-red { background: #FCEBEB; color: #791F1F; border-color: #F09595; }
 .np-pill.np-blue { background: #E6F1FB; color: #0C447C; border-color: #85B7EB; }
 .np-pill.np-gray { background: #F1EFE8; color: #444441; border-color: #B4B2A9; }
+/* Necrotizing/toxin definitive rows: Clostridium (yellow) + GAS (orange); dark text on soft fills for contrast */
+.np-pill.np-yellow { background: #FEFCE8; color: #5A4A08; border-color: #CA9A06; }
+.np-pill.np-orange { background: #FFEDD5; color: #7C2D12; border-color: #E85D1A; }
 .step-card .np-pill { font-size: 10px; padding: 3px 8px; }
 .step-card .np-pill .np-pill-name { font-size: 10px; }
-.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+/* minmax(0,1fr) + .grid > .card min-width: 0 — grid items default min-width:auto lets nowrap titles inflate tracks */
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.grid > .card { min-width: 0; }
 .po-section .grid { align-items: start; }
+/* Necrotizing / toxin-mediated: two pathway columns (not 3-column mild/mod/sev) */
+.ntm-section .grid.ntm-dual-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .ntm-section .grid.ntm-dual-grid { grid-template-columns: 1fr; }
+}
 .card { background: #f9f8f4; border: 1px solid #e8e7e0; border-radius: 10px; overflow: hidden; }
 .card-head { padding: 10px 14px 9px; border-bottom: 1px solid #e8e7e0; }
-/* Impetigo + preseptal/orbital grids: equal header height for column alignment; center the
-   label/title stack so extra min-height space splits evenly above and below (symmetric padding). */
+/* Impetigo + preseptal/orbital + NTM dual pathway: equal header height for column alignment; center the
+   label/title stack so extra min-height space splits evenly above and below (symmetric padding).
+   NTM needs this when fitSevName() shrinks one pathway title more than the other (same min-height band). */
 .p-section:first-of-type .card-head,
-.po-section .card-head {
+.po-section .card-head,
+.ntm-section .card-head {
   min-height: 4rem;
   padding: 2px 14px;
   display: flex;
@@ -86,9 +118,21 @@
   justify-content: center;
 }
 .sev-label { font-family: 'Space Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2px; }
-.sev-name { font-family: 'Space Mono', monospace; font-size: 17px; font-weight: 700; }
-/* Long titles wrap at the same 17px as .sev-name; line-height aids multi-line readability */
-.sev-name-wrap { line-height: 1.3; letter-spacing: 0.01em; }
+/* Shared max — index.html fitSevName() resets to this via computed font-size */
+.sev-name {
+  --sev-name-font-max: 17px;
+  font-family: 'Space Mono', monospace;
+  font-size: var(--sev-name-font-max);
+  font-weight: 700;
+}
+/* Long pathway titles: always one line (nowrap); initSevNameFit / fitSevName in index.html scales font-size */
+.sev-name-wrap {
+  min-width: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 1.18;
+  letter-spacing: 0.01em;
+}
 .mild .card-head { background: #E1F5EE; border-bottom-color: #5DCAA5; }
 .mild .sev-label { color: #0F6E56; }
 .mild .sev-name { color: #085041; }
@@ -115,6 +159,8 @@
 .p-red { background: #FCEBEB; color: #791F1F; border: 1px solid #F09595; }
 .p-blue { background: #E6F1FB; color: #0C447C; border: 1px solid #85B7EB; }
 .p-gray { background: #F1EFE8; color: #444441; border: 1px solid #B4B2A9; }
+.p-yellow { background: #FEFCE8; color: #5A4A08; border: 1px solid #CA9A06; }
+.p-orange { background: #FFEDD5; color: #7C2D12; border: 1px solid #E85D1A; }
 .italic-note { font-size: 11px; color: #888780; font-style: italic; margin-top: 4px; line-height: 1.5; }
 .org-row { display: flex; align-items: center; gap: 7px; margin-bottom: 5px; }
 .org-row:last-child { margin-bottom: 0; }
@@ -136,7 +182,7 @@
 .procedure-block-disclosure > .card-disclosure__body {
   padding-left: 14px;
 }
-/* Orbital: IV therapy & escalation collapsible — summary label + preview only */
+/* Orbital IV therapy — label + preview; NTM empirical reuses orbital body stacking via .orbital-therapy-disclosure + .ntm-empirical-disclosure peek */
 .orbital-therapy-disclosure > .card-disclosure__summary > .sec-label:first-child {
   margin-bottom: 5px;
 }
@@ -166,6 +212,10 @@
 .orbital-therapy-disclosure .orbital-therapy-footnote {
   margin-top: 2px;
   line-height: 1.55;
+}
+/* NTM NF: summary holds preferred pills; alternative lives in body only */
+.ntm-empirical-disclosure > .card-disclosure__summary {
+  gap: 6px;
 }
 .card-disclosure__summary {
   cursor: pointer;
@@ -216,6 +266,9 @@
 @media print {
   .card-disclosure summary { break-inside: avoid; page-break-inside: avoid; }
   .card-disclosure summary::before { display: none; }
+  /* NTM: print one column so disclosures and pills stay readable */
+  .ntm-section .grid.ntm-dual-grid { grid-template-columns: 1fr; }
+  /* .sev-name-wrap remeasured in beforeprint so titles refit to print column width */
 }
 
 .footer { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #e8e7e0; display: flex; align-items: center; justify-content: space-between; }

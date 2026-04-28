@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="./dose-calc/dose-calc.css" />
 </head>
 <body>
-<h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">PedSMARxT SSTI treatment cheat sheet — purulent folliculitis and impetigo spectrum, furuncle/abscess cellulitis, non-purulent cellulitis, and preseptal/orbital cellulitis</h2>
+<h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">PedSMARxT SSTI treatment cheat sheet — purulent folliculitis and impetigo spectrum, furuncle/abscess cellulitis, non-purulent cellulitis, necrotizing and toxin-mediated cellulitis, and preseptal/orbital cellulitis</h2>
 
 <div class="outer">
   <div class="header">
@@ -19,6 +19,7 @@
 
   <div id="disease-purulent"></div>
   <div id="disease-non-purulent"></div>
+  <div id="disease-necrotizing-toxin"></div>
   <div id="disease-preseptal-orbital"></div>
 
   <div class="footer">
@@ -29,6 +30,55 @@
 <script>
 (function() {
   var docClickBound = false;
+  var sevNameFitListenersAttached = false;
+
+  function debounce(fn, ms) {
+    var t;
+    return function() {
+      clearTimeout(t);
+      t = setTimeout(fn, ms);
+    };
+  }
+
+  /* Long card titles (.sev-name-wrap): stay one line (nowrap in CSS); shrink font down to minPx if needed */
+  function fitSevName(el, depth) {
+    if (depth === undefined) depth = 0;
+    el.style.removeProperty('font-size');
+    var cs = getComputedStyle(el);
+    var maxPx = parseFloat(cs.fontSize) || 17;
+    var minPx = 6; /* floor for very long pathway labels in narrow columns; keep single-line */
+    var size = maxPx;
+    el.style.fontSize = size + 'px';
+    if (!el.clientWidth && depth < 4) {
+      requestAnimationFrame(function() {
+        fitSevName(el, depth + 1);
+      });
+      return;
+    }
+    if (!el.clientWidth) return;
+    while (el.scrollWidth > el.clientWidth && size > minPx) {
+      size -= 0.5;
+      el.style.fontSize = size + 'px';
+    }
+  }
+
+  function initSevNameFit() {
+    document.querySelectorAll('.sev-name-wrap').forEach(fitSevName);
+  }
+
+  function initSevNameFitListeners() {
+    if (sevNameFitListenersAttached) return;
+    sevNameFitListenersAttached = true;
+    var debounced = debounce(initSevNameFit, 120);
+    window.addEventListener('resize', debounced);
+    if (typeof ResizeObserver !== 'undefined') {
+      var ro = new ResizeObserver(debounced);
+      document.querySelectorAll('.card').forEach(function(card) {
+        if (card.querySelector('.sev-name-wrap')) ro.observe(card);
+      });
+    }
+  }
+
   function initNpPills() {
     document.querySelectorAll('.np-pill-group').forEach(function(group) {
       group.querySelectorAll('.np-pill').forEach(function(pill) {
@@ -68,6 +118,7 @@
         d.dataset.cardDisclosureWasOpen = d.open ? '1' : '0';
         d.open = true;
       });
+      initSevNameFit();
     });
     window.addEventListener('afterprint', function() {
       document.querySelectorAll('details.card-disclosure').forEach(function(d) {
@@ -76,6 +127,7 @@
           delete d.dataset.cardDisclosureWasOpen;
         }
       });
+      initSevNameFit();
     });
   }
 
@@ -83,21 +135,32 @@
   Promise.all([
     fetch('./diseases/purulent-cellulitis/section.html'),
     fetch('./diseases/non-purulent-cellulitis/section.html'),
+    fetch('./diseases/necrotizing-toxin-mediated-cellulitis/section.html'),
     fetch('./diseases/preseptal-orbital-cellulitis/section.html')
   ]).then(function(responses) {
-    if (!responses[0].ok || !responses[1].ok || !responses[2].ok) {
-      throw new Error('Failed to load disease sections: ' + responses[0].status + ' / ' + responses[1].status + ' / ' + responses[2].status);
+    if (!responses[0].ok || !responses[1].ok || !responses[2].ok || !responses[3].ok) {
+      throw new Error('Failed to load disease sections: ' + responses[0].status + ' / ' + responses[1].status + ' / ' + responses[2].status + ' / ' + responses[3].status);
     }
-    return Promise.all([responses[0].text(), responses[1].text(), responses[2].text()]);
+    return Promise.all([responses[0].text(), responses[1].text(), responses[2].text(), responses[3].text()]);
   }).then(function(htmls) {
     var pur = document.getElementById('disease-purulent');
     var np = document.getElementById('disease-non-purulent');
+    var ntm = document.getElementById('disease-necrotizing-toxin');
     var po = document.getElementById('disease-preseptal-orbital');
     pur.innerHTML = htmls[0];
     np.innerHTML = htmls[1];
-    po.innerHTML = htmls[2];
+    ntm.innerHTML = htmls[2];
+    po.innerHTML = htmls[3];
     initNpPills();
     initCardDisclosurePrint();
+    initSevNameFitListeners();
+    document.fonts.ready.then(function() {
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          initSevNameFit();
+        });
+      });
+    });
     return import('./dose-calc/np-pill.js');
   }).then(function(mod) {
     if (mod && typeof mod.initDoseCalcPills === 'function') {

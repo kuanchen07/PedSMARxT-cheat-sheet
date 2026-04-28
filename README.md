@@ -8,7 +8,7 @@ A single-file **PedSMARxT** (Pediatric Antibiotic Edition) quick reference for *
 
 This list tracks what the sheet covers; **content is updated often** as the cheat sheet changes.
 
-The page is organized into four main areas:
+The page is organized into five main areas:
 
 1. **Purulent cellulitis — impetigo / ecthyma / folliculitis**  
    Folliculitis, limited impetigo, and ecthyma or extensive impetigo: when I&D and cultures are *not* indicated, topical vs oral options, penicillin-allergy alternatives, and vancomycin when systemically ill.
@@ -19,5 +19,8 @@ The page is organized into four main areas:
 3. **Non-purulent cellulitis**  
    **Mild** (outpatient oral beta-lactams and PCN-allergy clindamycin), **moderate** (IV cefazolin, nafcillin, or vancomycin for type I PCN allergy), and **severe** (blood culture; empirical vancomycin; culture-guided GAS, MSSA, MRSA; ID/surgery notes).
 
-4. **Preseptal / orbital cellulitis**  
+4. **Necrotizing and toxin-mediated cellulitis**  
+   Two emergent pathways in **side-by-side column cards**, each labeled (**Necrotizing fasciitis / Fournier's gangrene / Ludwig's angina** vs **Toxic shock syndrome / Staphylococcal scalded skin syndrome / toxin-mediated disease**), under one main heading. NF/Fournier/Ludwig: emergent debridement, deep tissue and blood cultures, ID and surgery; empirical pip/tazo plus linezolid (or vancomycin plus cefepime, metronidazole, clindamycin); culture-guided definitive regimens by organism (e.g. penicillin/clindamycin, MRSA options, Vibrio/Aeromonas). TSS/SSSS/toxin-mediated: blood cultures, ID and surgery; empirical nafcillin plus linezolid; culture-guided GAS, MSSA, and MRSA pathways.
+
+5. **Preseptal / orbital cellulitis**  
    **Preseptal** (outpatient PO regimens by sinus/dental/unclear vs clear skin source; routine I&D/cultures not indicated), **orbital** (admit workup: CT orbits/sinuses with contrast, blood cultures, MRSA nares, ID/ophthalmology and conditional ENT/OMFS; IV ampicillin-sulbactam or vancomycin by source; intracranial-extension MRI/metronidazole/ceftriaxone/vancomycin pathway), and **unclear** preseptal vs orbital (ophthalmology; consider CT; proceed per findings).

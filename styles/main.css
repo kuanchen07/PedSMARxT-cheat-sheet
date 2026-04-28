@@ -6,9 +6,39 @@
 .header-title { font-family: 'Space Mono', monospace; font-size: 16px; font-weight: 700; color: #1a1a18; letter-spacing: 0.03em; }
 .header-sub { font-size: 12px; color: #888780; margin-left: auto; font-style: italic; }
 .section-block + .section-block { margin-top: 1.5rem; }
+/* Partials load into separate #disease-* nodes (not adjacent .section-block siblings) */
+#disease-non-purulent,
+#disease-preseptal-orbital { margin-top: 2rem; }
 .section-title { font-family: 'Space Mono', monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; color: #1a1a18; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid #e8e7e0; }
+.section-title-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e8e7e0;
+}
+.section-title-row .section-title {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+.section-review-note {
+  flex-shrink: 0;
+  margin-left: auto;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #a32d2d;
+}
+.section-title--review { color: #a32d2d; }
+.np-section .section-title,
+.po-section .section-title { margin-bottom: 1.25rem; }
 .divider-dashed { height: 0; border: none; border-top: 1px dashed #c4c2ba; margin: 6px 0 4px; background: none; }
-.np-section .card, .p-section .card { overflow: visible; }
+.np-section .card, .p-section .card, .po-section .card { overflow: visible; }
 .np-pill-group { display: flex; flex-wrap: wrap; align-content: flex-start; align-items: flex-start; gap: 5px 6px; }
 .np-pill {
   display: inline-flex; flex-direction: column; align-items: flex-start; align-self: flex-start;
@@ -42,6 +72,7 @@
 .step-card .np-pill { font-size: 10px; padding: 3px 8px; }
 .step-card .np-pill .np-pill-name { font-size: 10px; }
 .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.po-section .grid { align-items: start; }
 .card { background: #f9f8f4; border: 1px solid #e8e7e0; border-radius: 10px; overflow: hidden; }
 .card-head { padding: 10px 14px 9px; border-bottom: 1px solid #e8e7e0; }
 .sev-label { font-family: 'Space Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2px; }
@@ -84,5 +115,97 @@
 .step-mssa { color: #0C447C; }
 .step-gas { color: #085041; }
 .step-drugs { display: flex; flex-wrap: wrap; gap: 4px; }
+/* Native disclosure: collapsible reference sections inside severity cards — opt-in via .card-disclosure */
+.card-disclosure { border-radius: 0; }
+.card-disclosure + .divider { flex-shrink: 0; }
+/* Whole Procedures block collapsible — summary = label + peek rows; body = remainder */
+.procedure-block-disclosure > .card-disclosure__summary > .sec-label:first-child {
+  margin-bottom: 5px;
+}
+.procedure-block-disclosure > .card-disclosure__body {
+  padding-left: 14px;
+}
+/* Orbital: IV therapy & escalation collapsible — summary label + preview only */
+.orbital-therapy-disclosure > .card-disclosure__summary > .sec-label:first-child {
+  margin-bottom: 5px;
+}
+.orbital-therapy-disclosure > .card-disclosure__body {
+  padding-left: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 10px;
+  padding-top: 6px;
+}
+/* Subsections stack with comfortable line-ish gaps */
+.orbital-therapy-disclosure > .card-disclosure__body > div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.orbital-therapy-disclosure > .card-disclosure__body > div > .sec-label:first-child {
+  margin-bottom: 6px;
+}
+.orbital-therapy-disclosure > .card-disclosure__body .check-row {
+  margin-bottom: 0;
+}
+.orbital-therapy-disclosure > .card-disclosure__body .divider-dashed {
+  margin: 4px 0 8px;
+}
+.orbital-therapy-disclosure .orbital-therapy-footnote {
+  margin-top: 2px;
+  line-height: 1.55;
+}
+.card-disclosure__summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0 0 0 14px;
+  position: relative;
+  outline: none;
+}
+.card-disclosure__summary::-webkit-details-marker { display: none; }
+.card-disclosure__summary::marker { content: ''; }
+.card-disclosure__summary::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.28rem;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 5px solid #888780;
+  transform-origin: center 42%;
+  transition: transform 0.15s ease;
+  transform: rotate(-90deg);
+}
+.card-disclosure[open] > .card-disclosure__summary::before {
+  transform: rotate(0deg);
+  top: 0.42rem;
+}
+.card-disclosure__summary:hover .sec-label { color: #5e5e58; }
+.card-disclosure__summary:focus-visible {
+  outline: 2px solid #5DCAA5;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.card-disclosure .sec-label { margin-bottom: 0; }
+.card-disclosure__preview {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.card-disclosure__body {
+  margin-top: 8px;
+  padding-top: 2px;
+}
+.card-disclosure__body > .step-card:last-child { margin-bottom: 0; }
+@media print {
+  .card-disclosure summary { break-inside: avoid; page-break-inside: avoid; }
+  .card-disclosure summary::before { display: none; }
+}
+
 .footer { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #e8e7e0; display: flex; align-items: center; justify-content: space-between; }
 .footer-tag { font-family: 'Space Mono', monospace; font-size: 10px; color: #b4b2a9; letter-spacing: 0.06em; }

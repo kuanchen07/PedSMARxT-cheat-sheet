@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="./styles/main.css" />
 </head>
 <body>
-<h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">PedSMARxT SSTI treatment cheat sheet — purulent folliculitis and impetigo spectrum, furuncle/abscess cellulitis, and non-purulent cellulitis</h2>
+<h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">PedSMARxT SSTI treatment cheat sheet — purulent folliculitis and impetigo spectrum, furuncle/abscess cellulitis, non-purulent cellulitis, and preseptal/orbital cellulitis</h2>
 
 <div class="outer">
   <div class="header">
@@ -18,6 +18,7 @@
 
   <div id="disease-purulent"></div>
   <div id="disease-non-purulent"></div>
+  <div id="disease-preseptal-orbital"></div>
 
   <div class="footer">
     <span class="footer-tag">COLLEGE OF PHARMACY · WONDERS OF PHARMACY</span>
@@ -57,21 +58,42 @@
     }
   }
 
+  function initCardDisclosurePrint() {
+    window.addEventListener('beforeprint', function() {
+      document.querySelectorAll('details.card-disclosure').forEach(function(d) {
+        d.dataset.cardDisclosureWasOpen = d.open ? '1' : '0';
+        d.open = true;
+      });
+    });
+    window.addEventListener('afterprint', function() {
+      document.querySelectorAll('details.card-disclosure').forEach(function(d) {
+        if (d.dataset.cardDisclosureWasOpen !== undefined) {
+          if (d.dataset.cardDisclosureWasOpen !== '1') d.open = false;
+          delete d.dataset.cardDisclosureWasOpen;
+        }
+      });
+    });
+  }
+
   // Fetch requires http(s) or a local static server; file:// often fails.
   Promise.all([
     fetch('./diseases/purulent-cellulitis/section.html'),
-    fetch('./diseases/non-purulent-cellulitis/section.html')
+    fetch('./diseases/non-purulent-cellulitis/section.html'),
+    fetch('./diseases/preseptal-orbital-cellulitis/section.html')
   ]).then(function(responses) {
-    if (!responses[0].ok || !responses[1].ok) {
-      throw new Error('Failed to load disease sections: ' + responses[0].status + ' / ' + responses[1].status);
+    if (!responses[0].ok || !responses[1].ok || !responses[2].ok) {
+      throw new Error('Failed to load disease sections: ' + responses[0].status + ' / ' + responses[1].status + ' / ' + responses[2].status);
     }
-    return Promise.all([responses[0].text(), responses[1].text()]);
+    return Promise.all([responses[0].text(), responses[1].text(), responses[2].text()]);
   }).then(function(htmls) {
     var pur = document.getElementById('disease-purulent');
     var np = document.getElementById('disease-non-purulent');
+    var po = document.getElementById('disease-preseptal-orbital');
     pur.innerHTML = htmls[0];
     np.innerHTML = htmls[1];
+    po.innerHTML = htmls[2];
     initNpPills();
+    initCardDisclosurePrint();
   }).catch(function(err) {
     console.error(err);
     var pur = document.getElementById('disease-purulent');

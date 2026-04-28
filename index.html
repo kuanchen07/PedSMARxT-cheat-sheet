@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>PedSMARxT — SSTI treatment cheat sheet</title>
   <link rel="stylesheet" href="./styles/main.css" />
+  <link rel="stylesheet" href="./dose-calc/dose-calc.css" />
 </head>
 <body>
 <h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">PedSMARxT SSTI treatment cheat sheet — purulent folliculitis and impetigo spectrum, furuncle/abscess cellulitis, non-purulent cellulitis, and preseptal/orbital cellulitis</h2>
@@ -33,17 +34,20 @@
       group.querySelectorAll('.np-pill').forEach(function(pill) {
         if (pill.dataset.npPillInit) return;
         pill.dataset.npPillInit = '1';
-        pill.setAttribute('role', 'button');
-        pill.setAttribute('tabindex', '0');
-        pill.addEventListener('click', function() {
+        var pillName = pill.querySelector('.np-pill-name');
+        if (!pillName) return;
+        pillName.setAttribute('role', 'button');
+        pillName.setAttribute('tabindex', '0');
+        pillName.addEventListener('click', function(e) {
+          e.stopPropagation();
           var was = pill.classList.contains('is-open');
           group.querySelectorAll('.np-pill').forEach(function(p) { p.classList.remove('is-open'); });
           if (!was) pill.classList.add('is-open');
         });
-        pill.addEventListener('keydown', function(e) {
+        pillName.addEventListener('keydown', function(e) {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
-            pill.click();
+            pillName.click();
           }
         });
       });
@@ -94,6 +98,11 @@
     po.innerHTML = htmls[2];
     initNpPills();
     initCardDisclosurePrint();
+    return import('./dose-calc/np-pill.js');
+  }).then(function(mod) {
+    if (mod && typeof mod.initDoseCalcPills === 'function') {
+      mod.initDoseCalcPills();
+    }
   }).catch(function(err) {
     console.error(err);
     var pur = document.getElementById('disease-purulent');

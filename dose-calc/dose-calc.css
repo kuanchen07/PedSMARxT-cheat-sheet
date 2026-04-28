@@ -1,0 +1,71 @@
+/* PedSMARxT weight helper — paired with dose-calc/np-pill.js & compute.js */
+
+.np-pill-dose-calc {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px dashed rgba(61, 61, 56, 0.35);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: #3d3d38;
+}
+
+.np-pill-dose-calc-label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px;
+  cursor: default;
+}
+
+.np-pill-dose-calc-input {
+  width: 4rem;
+  min-width: 0;
+  padding: 2px 5px;
+  font: inherit;
+  border: 1px solid rgba(61, 61, 56, 0.35);
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.85);
+  color: #2a2a26;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.np-pill-dose-calc-input::-webkit-outer-spin-button,
+.np-pill-dose-calc-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.np-pill-dose-calc-input:focus {
+  outline: 2px solid #85b7eb;
+  outline-offset: 1px;
+}
+
+.np-pill-dose-calc-out {
+  margin-top: 4px;
+}
+
+.np-pill-dose-calc-line + .np-pill-dose-calc-line {
+  margin-top: 3px;
+}
+
+.np-pill-dose-calc-capped {
+  font-weight: 500;
+  opacity: 0.92;
+}
+
+.np-pill.has-dose-calc.is-open .np-pill-dose-clip {
+  max-height: min(32rem, 88vh);
+}
+
+@media print {
+  .np-pill-dose-calc {
+    display: none !important;
+  }
+
+  .np-pill.has-dose-calc .np-pill-dose-clip {
+    max-height: 6rem;
+  }
+}

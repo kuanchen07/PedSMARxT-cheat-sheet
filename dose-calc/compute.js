@@ -29,7 +29,7 @@ export function parseDoseCalcAttr(jsonStr) {
  * @param {DoseCalcSpec} spec
  * @returns {number|null}
  */
-export function normalizeCapMg(spec) {
+function normalizeCapMg(spec) {
   if (spec.capMg != null && spec.capMg !== '') {
     const n = Number(spec.capMg);
     return Number.isFinite(n) ? n : null;

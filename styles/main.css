@@ -204,7 +204,6 @@
 .divider { height: 1px; background: #e8e7e0; }
 .pill { display: inline-flex; align-items: center; font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 4px; margin: 2px 3px 0 0; }
 .p-teal { background: #E1F5EE; color: #085041; border: 1px solid #5DCAA5; }
-.p-amber { background: #FAEEDA; color: #633806; border: 1px solid #EF9F27; }
 .p-red { background: #FCEBEB; color: #791F1F; border: 1px solid #F09595; }
 .p-blue { background: #E6F1FB; color: #0C447C; border: 1px solid #85B7EB; }
 .p-gray { background: #F1EFE8; color: #444441; border: 1px solid #B4B2A9; }
@@ -252,14 +251,13 @@
 }
 .org-row { display: flex; align-items: center; gap: 7px; margin-bottom: 5px; }
 .org-row:last-child { margin-bottom: 0; }
-.org-drug { font-size: 12px; color: #1a1a18; }
+/* Dropped unused .org-drug / .step-drugs — org rows use .pill / .np-pill only */
 .step-card { background: #fff; border: 1px solid #e8e7e0; border-radius: 6px; padding: 7px 9px; margin-bottom: 5px; }
 .step-card:last-child { margin-bottom: 0; }
 .step-org { font-family: 'Space Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 4px; }
 .step-mrsa { color: #791F1F; }
 .step-mssa { color: #0C447C; }
 .step-gas { color: #085041; }
-.step-drugs { display: flex; flex-wrap: wrap; gap: 4px; }
 /* Native disclosure: collapsible reference sections inside severity cards — opt-in via .card-disclosure */
 .card-disclosure { border-radius: 0; }
 .card-disclosure + .divider { flex-shrink: 0; }

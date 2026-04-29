@@ -3,18 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PedSMARxT — SSTI treatment cheat sheet</title>
+  <title>PedSMARxT — cheat sheet</title>
   <link rel="stylesheet" href="./styles/main.css" />
   <link rel="stylesheet" href="./dose-calc/dose-calc.css" />
 </head>
 <body>
-<h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">PedSMARxT SSTI treatment cheat sheet — purulent folliculitis and impetigo spectrum, furuncle/abscess cellulitis, non-purulent cellulitis, necrotizing and toxin-mediated cellulitis, and preseptal/orbital cellulitis</h2>
+<h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">PedSMARxT cheat sheet — purulent folliculitis and impetigo spectrum, furuncle/abscess cellulitis, non-purulent cellulitis, necrotizing and toxin-mediated cellulitis, preseptal/orbital cellulitis, human/cat/dog bites, and pyomyositis</h2>
 
 <div class="outer">
   <div class="header">
-    <span class="rx-badge">PedSMARxT</span>
-    <span class="header-title">SSTI treatment cheat sheet</span>
-    <span class="header-sub">Pediatric Antibiotic Edition</span>
+    <span class="rx-badge"><img src="logos\PedSMARxT-logo.png" alt="PedSMARxT" /></span>
+    <span class="header-title">cheat sheet</span>
+    <!-- Former .header-sub (Pediatric Antibiotic Edition) slot — partner wordmark, far right -->
+    <span class="header-affiliate-logo"><img src="./logos/chrome-lab-icon.png" alt="CHRoME LAB" /></span>
   </div>
 
   <div id="disease-purulent"></div>
@@ -131,17 +132,48 @@
     });
   }
 
+  var ntmAnchorFlashTimer = null;
+  /* Table 4/5 links use href=#ntm-section-title for scroll; data-ntm-flash selects the pathway card to pulse (CSS .ntm-anchor-flash = 3s) */
+  function initNtmAnchorFlash() {
+    document.addEventListener('click', function(e) {
+      var a = e.target.closest('a.sheet-anchor[data-ntm-flash]');
+      if (!a) return;
+      var flashId = a.getAttribute('data-ntm-flash');
+      if (!flashId) return;
+      var el = document.getElementById(flashId);
+      if (!el || !el.classList.contains('card')) return;
+      if (ntmAnchorFlashTimer) {
+        clearTimeout(ntmAnchorFlashTimer);
+        ntmAnchorFlashTimer = null;
+      }
+      document.querySelectorAll('.ntm-anchor-flash').forEach(function(c) {
+        c.classList.remove('ntm-anchor-flash');
+      });
+      /* After browser applies #ntm-section-title scroll, pulse the relevant table card */
+      setTimeout(function() {
+        void el.offsetWidth;
+        el.classList.add('ntm-anchor-flash');
+        ntmAnchorFlashTimer = setTimeout(function() {
+          el.classList.remove('ntm-anchor-flash');
+          ntmAnchorFlashTimer = null;
+        }, 3000);
+      }, 80);
+    });
+  }
+
+  initNtmAnchorFlash();
   // Fetch requires http(s) or a local static server; file:// often fails.
   Promise.all([
     fetch('./diseases/purulent-cellulitis/section.html'),
     fetch('./diseases/non-purulent-cellulitis/section.html'),
     fetch('./diseases/necrotizing-toxin-mediated-cellulitis/section.html'),
-    fetch('./diseases/preseptal-orbital-cellulitis/section.html')
+    fetch('./diseases/preseptal-orbital-cellulitis/section.html'),
+    fetch('./diseases/undefined/section.html')
   ]).then(function(responses) {
-    if (!responses[0].ok || !responses[1].ok || !responses[2].ok || !responses[3].ok) {
-      throw new Error('Failed to load disease sections: ' + responses[0].status + ' / ' + responses[1].status + ' / ' + responses[2].status + ' / ' + responses[3].status);
+    if (!responses[0].ok || !responses[1].ok || !responses[2].ok || !responses[3].ok || !responses[4].ok) {
+      throw new Error('Failed to load disease sections: ' + responses[0].status + ' / ' + responses[1].status + ' / ' + responses[2].status + ' / ' + responses[3].status + ' / ' + responses[4].status);
     }
-    return Promise.all([responses[0].text(), responses[1].text(), responses[2].text(), responses[3].text()]);
+    return Promise.all([responses[0].text(), responses[1].text(), responses[2].text(), responses[3].text(), responses[4].text()]);
   }).then(function(htmls) {
     var pur = document.getElementById('disease-purulent');
     var np = document.getElementById('disease-non-purulent');
@@ -150,7 +182,8 @@
     pur.innerHTML = htmls[0];
     np.innerHTML = htmls[1];
     ntm.innerHTML = htmls[2];
-    po.innerHTML = htmls[3];
+    /* Preseptal/orbital partial + bites/pyomyositis (`diseases/undefined`) share one mount so spacing uses .section-block + .section-block */
+    po.innerHTML = htmls[3] + htmls[4];
     initNpPills();
     initCardDisclosurePrint();
     initSevNameFitListeners();

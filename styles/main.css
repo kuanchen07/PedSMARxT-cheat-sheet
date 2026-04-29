@@ -2,9 +2,32 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 .outer { background: #ffffff; border: 1px solid #d9d8d0; border-radius: 16px; padding: 2rem; font-family: 'DM Sans', sans-serif; }
 .header { display: flex; align-items: center; gap: 14px; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid #e8e7e0; }
-.rx-badge { font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; background: #E1F5EE; color: #085041; padding: 5px 10px; border-radius: 4px; border: 1px solid #5DCAA5; }
+/* Header brand: bare logo (max-height scales proportional sticker artwork) */
+.rx-badge {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.rx-badge img {
+  display: block;
+  height: auto;
+  width: auto;
+  max-height: 60px; /* ~20% larger than prior 50px cap */
+}
+/* Right header: bare image like .rx-badge; 20% shorter cap than PedSMARxT (60px → 48px) */
+.header-affiliate-logo {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+.header-affiliate-logo img {
+  display: block;
+  height: auto;
+  width: auto;
+  max-height: 48px;
+}
 .header-title { font-family: 'Space Mono', monospace; font-size: 16px; font-weight: 700; color: #1a1a18; letter-spacing: 0.03em; }
-.header-sub { font-size: 12px; color: #888780; margin-left: auto; font-style: italic; }
 .section-block + .section-block { margin-top: 1.5rem; }
 /* Partials load into separate #disease-* nodes (not adjacent .section-block siblings) */
 #disease-non-purulent,
@@ -37,11 +60,12 @@
 }
 .section-title--review { color: #a32d2d; }
 .np-section .section-title,
-.po-section .section-title { margin-bottom: 1.25rem; }
+.po-section .section-title,
+.undefined-section .section-title { margin-bottom: 1.25rem; }
 /* NTM: main heading + dual grid; pathway names live on each card head (no duplicate subtitle row) */
 .ntm-section .section-title { margin-bottom: 1rem; }
 .divider-dashed { height: 0; border: none; border-top: 1px dashed #c4c2ba; margin: 6px 0 4px; background: none; }
-.np-section .card, .ntm-section .card, .p-section .card, .po-section .card { overflow: visible; }
+.np-section .card, .ntm-section .card, .p-section .card, .po-section .card, .undefined-section .card { overflow: visible; }
 .np-pill-group { display: flex; flex-wrap: wrap; align-content: flex-start; align-items: flex-start; gap: 5px 6px; }
 .np-pill {
   display: inline-flex; flex-direction: column; align-items: flex-start; align-self: flex-start;
@@ -95,13 +119,32 @@
 .grid > .card { min-width: 0; }
 .po-section .grid { align-items: start; }
 /* Necrotizing / toxin-mediated: two pathway columns (not 3-column mild/mod/sev) */
-.ntm-section .grid.ntm-dual-grid {
+.ntm-section .grid.ntm-dual-grid,
+.undefined-section .grid.undefined-dual-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
   align-items: start;
 }
 @media (max-width: 900px) {
-  .ntm-section .grid.ntm-dual-grid { grid-template-columns: 1fr; }
+  .ntm-section .grid.ntm-dual-grid,
+  .undefined-section .grid.undefined-dual-grid { grid-template-columns: 1fr; }
+}
+/* After in-sheet jump to #ntm-section-title + data-ntm-flash: index.html adds .ntm-anchor-flash for 3s — keep duration in sync with setTimeout there */
+@keyframes ntm-anchor-flash {
+  0%, 100% { outline: 0 solid transparent; outline-offset: 0; }
+  5% { outline: 3px solid rgba(0, 51, 160, 0.65); outline-offset: 2px; }
+  14% { outline: 0 solid transparent; outline-offset: 0; }
+  28% { outline: 3px solid rgba(0, 51, 160, 0.55); outline-offset: 2px; }
+  38% { outline: 0 solid transparent; }
+  52% { outline: 3px solid rgba(0, 51, 160, 0.45); outline-offset: 2px; }
+  64% { outline: 0 solid transparent; }
+  76% { outline: 2px solid rgba(0, 51, 160, 0.28); outline-offset: 1px; }
+  88%, 100% { outline: 0 solid transparent; outline-offset: 0; }
+}
+.ntm-section .card.sev.ntm-anchor-flash {
+  position: relative;
+  z-index: 2;
+  animation: ntm-anchor-flash 3s ease-in-out forwards;
 }
 .card { background: #f9f8f4; border: 1px solid #e8e7e0; border-radius: 10px; overflow: hidden; }
 .card-head { padding: 10px 14px 9px; border-bottom: 1px solid #e8e7e0; }
@@ -110,7 +153,8 @@
    NTM needs this when fitSevName() shrinks one pathway title more than the other (same min-height band). */
 .p-section:first-of-type .card-head,
 .po-section .card-head,
-.ntm-section .card-head {
+.ntm-section .card-head,
+.undefined-section .card-head {
   min-height: 4rem;
   padding: 2px 14px;
   display: flex;
@@ -126,6 +170,11 @@
   font-weight: 700;
 }
 /* Long pathway titles: always one line (nowrap); initSevNameFit / fitSevName in index.html scales font-size */
+/* TSS/SSSS/toxin-mediated column (Table 5): +1px ceiling vs NF pathway so title isn’t visibly undersized vs Table 4 */
+#ntm-table-5 .sev-name {
+  --sev-name-font-max: 18px;
+}
+
 .sev-name-wrap {
   min-width: 0;
   width: 100%;
@@ -162,6 +211,45 @@
 .p-yellow { background: #FEFCE8; color: #5A4A08; border: 1px solid #CA9A06; }
 .p-orange { background: #FFEDD5; color: #7C2D12; border: 1px solid #E85D1A; }
 .italic-note { font-size: 11px; color: #888780; font-style: italic; margin-top: 4px; line-height: 1.5; }
+/* In-sheet anchors: non-purulent severe definitive → #ntm-section-title + pulse via data-ntm-flash card ids */
+.np-section .table-jump-list {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #1a1a18;
+}
+.np-section .table-jump-item { margin-top: 6px; }
+.np-section .table-jump-item:first-child { margin-top: 2px; }
+.np-section .table-jump-hdr {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #444441;
+}
+.np-section a.sheet-anchor {
+  color: #0033a0;
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 51, 160, 0.35);
+  text-underline-offset: 2px;
+}
+.np-section a.sheet-anchor:hover {
+  text-decoration-color: #0033a0;
+}
+/* In-sheet jumps from pyomyositis (undefined partial) to NTM — match non-purulent link styling */
+.undefined-section a.sheet-anchor {
+  color: #0033a0;
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 51, 160, 0.35);
+  text-underline-offset: 2px;
+}
+.undefined-section a.sheet-anchor:hover {
+  text-decoration-color: #0033a0;
+}
 .org-row { display: flex; align-items: center; gap: 7px; margin-bottom: 5px; }
 .org-row:last-child { margin-bottom: 0; }
 .org-drug { font-size: 12px; color: #1a1a18; }
@@ -186,31 +274,37 @@
 .orbital-therapy-disclosure > .card-disclosure__summary > .sec-label:first-child {
   margin-bottom: 5px;
 }
+/* Pathway stacks + dashed dividers: body gap trims vertical band between orbital subsections */
 .orbital-therapy-disclosure > .card-disclosure__body {
   padding-left: 14px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 13px;
   margin-top: 10px;
   padding-top: 6px;
 }
-/* Subsections stack with comfortable line-ish gaps */
-.orbital-therapy-disclosure > .card-disclosure__body > div {
+/* Subsections only (.divider-dashed siblings stay single-line separators, not nested flex columns) */
+.orbital-therapy-disclosure > .card-disclosure__body > div:not(.divider-dashed) {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  align-self: flex-start;
+  width: 100%;
+  gap: 7px;
 }
-.orbital-therapy-disclosure > .card-disclosure__body > div > .sec-label:first-child {
+.orbital-therapy-disclosure > .card-disclosure__body > div:not(.divider-dashed) > .sec-label:first-child {
   margin-bottom: 6px;
 }
 .orbital-therapy-disclosure > .card-disclosure__body .check-row {
   margin-bottom: 0;
 }
+/* Extra margin-bottom so sec-label sits below dashed line (divider → title breathing room) */
 .orbital-therapy-disclosure > .card-disclosure__body .divider-dashed {
-  margin: 4px 0 8px;
+  margin: 4px 0 14px;
 }
+/* italic footers under pills: subsection row-gap owns spacing vs .italic-note margin stacking */
 .orbital-therapy-disclosure .orbital-therapy-footnote {
-  margin-top: 2px;
+  margin-top: 0;
+  margin-bottom: 0;
   line-height: 1.55;
 }
 /* NTM NF: summary holds preferred pills; alternative lives in body only */
@@ -258,6 +352,10 @@
   margin-top: 0;
   margin-bottom: 0;
 }
+/* Preview = collapsed-only cue; hide while open so summary isn’t redundant with body */
+.card-disclosure[open] > .card-disclosure__summary .card-disclosure__preview {
+  display: none;
+}
 .card-disclosure__body {
   margin-top: 8px;
   padding-top: 2px;
@@ -266,8 +364,9 @@
 @media print {
   .card-disclosure summary { break-inside: avoid; page-break-inside: avoid; }
   .card-disclosure summary::before { display: none; }
-  /* NTM: print one column so disclosures and pills stay readable */
-  .ntm-section .grid.ntm-dual-grid { grid-template-columns: 1fr; }
+  /* NTM + bites/pyomyositis: print one column so disclosures and pills stay readable */
+  .ntm-section .grid.ntm-dual-grid,
+  .undefined-section .grid.undefined-dual-grid { grid-template-columns: 1fr; }
   /* .sev-name-wrap remeasured in beforeprint so titles refit to print column width */
 }
 

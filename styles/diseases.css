@@ -19,23 +19,23 @@
 .np-section .section-title { margin-bottom: 1.25rem; }
 .np-section .card { overflow: visible; }
 
-/* Severe definitive col: in-sheet jump list → NTM Tables 4/5 + Bites Table 6 */
+/* Severe definitive col: in-sheet jump list → NTM Tables 4/5 + Bites Table 6 (~20% under prior bump for balance) */
 .np-section .table-jump-list {
   list-style: none;
-  margin: 4px 0 0;
+  margin: 3px 0 0;
   padding: 0;
   font-size: 12px;
-  line-height: 1.45;
+  line-height: 1.3;
   color: #1a1a18;
 }
-.np-section .table-jump-item { margin-top: 6px; }
-.np-section .table-jump-item:first-child { margin-top: 2px; }
+.np-section .table-jump-item { margin-top: 6.4px; }
+.np-section .table-jump-item:first-child { margin-top: 1.6px; }
 .np-section .table-jump-hdr {
   font-family: 'Space Mono', monospace;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: #444441;
+  font-size: 10.4px;
+  font-weight: 800;
+  letter-spacing: 0.048em;
+  color: #11110f;
 }
 .np-section a.sheet-anchor {
   color: #0033a0;

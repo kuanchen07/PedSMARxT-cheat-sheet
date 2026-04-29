@@ -112,15 +112,21 @@
           </div>
         </div>
         <div class="divider"></div>
-        <div>
-          <div class="sec-label">Definitive <span>(culture-guided)</span></div>
-          <!-- href scrolls to section heading; data-ntm-flash pulses matching pathway card (index.html) -->
-          <ul class="table-jump-list">
-            <li class="table-jump-item"><span class="table-jump-hdr">Table 4</span> <span aria-hidden="true">→</span> <a class="sheet-anchor" href="#ntm-section-title" data-ntm-flash="ntm-table-4">Treatment of Necrotizing Fasciitis, Clostridial Gas Gangrene, or Myonecrosis</a></li>
-            <li class="table-jump-item"><span class="table-jump-hdr">Table 5</span> <span aria-hidden="true">→</span> <a class="sheet-anchor" href="#ntm-section-title" data-ntm-flash="ntm-table-5">Treatment of Toxic Shock Syndrome, Staphylococcal Scalded Skin Syndrome, or Toxin-Mediated Disease</a></li>
-            <li class="table-jump-item"><span class="table-jump-hdr">Table 6</span> <span aria-hidden="true">→</span> <a class="sheet-anchor" href="#section-bites-pyomyositis" data-ntm-flash="ntm-table-6">Preemptive Therapy (Prophylaxis) and Treatment of Human, Cat, or Dog Bites</a></li>
-          </ul>
-        </div>
+        <!-- Definitive: same card-disclosure pattern as purulent severe / NTM — print expands via initCardDisclosurePrint in index.html -->
+        <details class="card-disclosure">
+          <summary class="card-disclosure__summary">
+            <span class="sec-label">Definitive <span>(culture-guided)</span></span>
+            <p class="italic-note card-disclosure__preview">NF/myonecrosis (Table 4), TSS/toxin-mediated (Table 5), bites (Table 6).</p>
+          </summary>
+          <div class="card-disclosure__body">
+            <!-- href scrolls to section heading; data-ntm-flash pulses matching pathway card (index.html) -->
+            <ul class="table-jump-list">
+              <li class="table-jump-item"><span class="table-jump-hdr">Table 4</span> <span aria-hidden="true">→</span> <a class="sheet-anchor" href="#ntm-section-title" data-ntm-flash="ntm-table-4">Treatment of Necrotizing Fasciitis, Clostridial Gas Gangrene, or Myonecrosis</a></li>
+              <li class="table-jump-item"><span class="table-jump-hdr">Table 5</span> <span aria-hidden="true">→</span> <a class="sheet-anchor" href="#ntm-section-title" data-ntm-flash="ntm-table-5">Treatment of Toxic Shock Syndrome, Staphylococcal Scalded Skin Syndrome, or Toxin-Mediated Disease</a></li>
+              <li class="table-jump-item"><span class="table-jump-hdr">Table 6</span> <span aria-hidden="true">→</span> <a class="sheet-anchor" href="#section-bites-pyomyositis" data-ntm-flash="ntm-table-6">Preemptive Therapy (Prophylaxis) and Treatment of Human, Cat, or Dog Bites</a></li>
+            </ul>
+          </div>
+        </details>
       </div>
     </div>
 

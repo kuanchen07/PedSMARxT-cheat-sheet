@@ -135,8 +135,9 @@
 .sev .sev-label { color: #A32D2D; }
 .sev .sev-name { color: #791F1F; }
 .card-body { padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; }
-.sec-label { font-family: 'Space Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #888780; margin-bottom: 5px; }
-.sec-label span { font-family: 'DM Sans', sans-serif; font-weight: 400; text-transform: none; letter-spacing: 0; font-size: 10px; }
+/* In-card subsection titles — sized to scan like .table-jump-hdr (diseases.css); was 9px gray */
+.sec-label { font-family: 'Space Mono', monospace; font-size: 12px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #11110f; margin-bottom: 5px; }
+.sec-label span { font-family: 'DM Sans', sans-serif; font-weight: 400; text-transform: none; letter-spacing: 0; font-size: 12px; }
 .check-row { display: flex; align-items: center; gap: 7px; margin-bottom: 4px; }
 .check-row:last-child { margin-bottom: 0; }
 .dot { width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -221,7 +222,8 @@
   content: '';
   position: absolute;
   left: 0;
-  top: 0.28rem;
+  /* Nudge with taller .sec-label (12px vs 9px) */
+  top: 0.32rem;
   width: 0;
   height: 0;
   border-left: 4px solid transparent;
@@ -233,9 +235,9 @@
 }
 .card-disclosure[open] > .card-disclosure__summary::before {
   transform: rotate(0deg);
-  top: 0.42rem;
+  top: 0.46rem;
 }
-.card-disclosure__summary:hover .sec-label { color: #5e5e58; }
+.card-disclosure__summary:hover .sec-label { color: #3d3d38; }
 .card-disclosure__summary:focus-visible {
   outline: 2px solid #5DCAA5;
   outline-offset: 3px;

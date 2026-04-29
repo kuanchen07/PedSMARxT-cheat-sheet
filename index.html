@@ -155,7 +155,7 @@
   }
 
   var ntmAnchorFlashTimer = null;
-  /* Table 4/5 links use href=#ntm-section-title for scroll; data-ntm-flash selects the pathway card to pulse (CSS .ntm-anchor-flash = 3s) */
+  /* Table 4/5: href=#ntm-section-title; Table 6: href=#section-bites-pyomyositis — data-ntm-flash id → card pulse (CSS .ntm-anchor-flash = 3s) */
   function initNtmAnchorFlash() {
     document.addEventListener('click', function(e) {
       var a = e.target.closest('a.sheet-anchor[data-ntm-flash]');
@@ -171,7 +171,7 @@
       document.querySelectorAll('.ntm-anchor-flash').forEach(function(c) {
         c.classList.remove('ntm-anchor-flash');
       });
-      /* After browser applies #ntm-section-title scroll, pulse the relevant table card */
+      /* After hash navigation scrolls, pulse the relevant pathway card */
       setTimeout(function() {
         void el.offsetWidth;
         el.classList.add('ntm-anchor-flash');

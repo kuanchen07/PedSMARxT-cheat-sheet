@@ -253,24 +253,28 @@
             <span class="sec-label">Step-down oral <span>(after IV)</span></span>
             <p class="italic-note card-disclosure__preview">PO options by MRSA, MSSA, or GAS.</p>
           </summary>
+          <!-- Same org-row + pill pattern as Definitive IV above (no step-card boxes) -->
           <div class="card-disclosure__body">
-            <div class="step-card">
-              <div class="step-org step-mrsa">MRSA</div>
-              <div class="np-pill-group" style="margin-top:2px;">
+            <div class="org-row">
+              <span class="pill p-red" style="margin:0;">MRSA</span>
+              <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><line x1="0" y1="5" x2="10" y2="5" stroke="#B4B2A9" stroke-width="1.5" stroke-linecap="round"/><polyline points="6,1 10,5 6,9" stroke="#B4B2A9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div class="np-pill-group" style="display:inline-flex; flex:1; min-width:0;">
                 <div class="np-pill np-red" data-dose-calc='{"kind":"mgkg_per_dose","mgPerKg":[6],"capMg":320,"labelSuffix":"TMP"}'><span class="np-pill-name">PO TMP-SMX</span><div class="np-pill-dose-clip"><span class="np-pill-dose">6 mg/kg/dose BID (max 320 mg TMP)</span></div></div>
                 <div class="np-pill np-red" data-dose-calc='{"kind":"mgkg_per_dose","mgPerKg":[2.2],"capMg":100}'><span class="np-pill-name">PO Doxycycline</span><div class="np-pill-dose-clip"><span class="np-pill-dose">2.2 mg/kg/dose BID (max 100 mg)</span></div></div>
               </div>
             </div>
-            <div class="step-card">
-              <div class="step-org step-mssa">MSSA</div>
-              <div class="np-pill-group" style="margin-top:2px;">
+            <div class="org-row" style="align-items:flex-start;">
+              <span class="pill p-blue" style="margin:0;flex-shrink:0;">MSSA</span>
+              <svg width="14" height="10" viewBox="0 0 14 10" fill="none" style="flex-shrink:0; margin-top:3px;"><line x1="0" y1="5" x2="10" y2="5" stroke="#B4B2A9" stroke-width="1.5" stroke-linecap="round"/><polyline points="6,1 10,5 6,9" stroke="#B4B2A9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div class="np-pill-group" style="display:inline-flex; flex:1; min-width:0; align-items:flex-start;">
                 <div class="np-pill np-blue" data-dose-calc='{"kind":"mgkg_per_dose","mgPerKg":[15],"capMg":500}'><span class="np-pill-name">PO Cefadroxil</span><div class="np-pill-dose-clip"><span class="np-pill-dose">15 mg/kg/dose BID (max 500 mg)</span></div></div>
                 <div class="np-pill np-blue" data-dose-calc='{"kind":"mgkg_per_dose","mgPerKg":[25],"capMg":1000}'><span class="np-pill-name">PO Cephalexin</span><div class="np-pill-dose-clip"><span class="np-pill-dose">25 mg/kg/dose QID (max 1000 mg)</span></div></div>
               </div>
             </div>
-            <div class="step-card">
-              <div class="step-org step-gas">GAS</div>
-              <div class="np-pill-group" style="margin-top:2px;">
+            <div class="org-row">
+              <span class="pill p-gray" style="margin:0;">GAS</span>
+              <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><line x1="0" y1="5" x2="10" y2="5" stroke="#B4B2A9" stroke-width="1.5" stroke-linecap="round"/><polyline points="6,1 10,5 6,9" stroke="#B4B2A9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div class="np-pill-group" style="display:inline-flex; flex:1; min-width:0;">
                 <div class="np-pill np-teal" data-dose-calc='{"kind":"mgkg_per_dose","mgPerKg":[15,20],"capMg":500}'><span class="np-pill-name">PO Penicillin VK</span><div class="np-pill-dose-clip"><span class="np-pill-dose">15&ndash;20 mg/kg/dose QID (max 500 mg)</span></div></div>
                 <div class="np-pill np-teal" data-dose-calc='{"kind":"mgkg_per_dose","mgPerKg":[15],"capMg":500}'><span class="np-pill-name">PO Cefadroxil</span><div class="np-pill-dose-clip"><span class="np-pill-dose">15 mg/kg/dose BID (max 500 mg)</span></div></div>
               </div>

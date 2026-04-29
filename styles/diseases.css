@@ -19,7 +19,7 @@
 .np-section .section-title { margin-bottom: 1.25rem; }
 .np-section .card { overflow: visible; }
 
-/* Severe definitive col: in-sheet jump list → necrotizing / toxin-mediated section */
+/* Severe definitive col: in-sheet jump list → NTM Tables 4/5 + Bites Table 6 */
 .np-section .table-jump-list {
   list-style: none;
   margin: 4px 0 0;
@@ -63,7 +63,7 @@
   .ntm-section .grid.ntm-dual-grid { grid-template-columns: 1fr; }
 }
 
-/* After in-sheet jump to #ntm-section-title + data-ntm-flash: index.html adds .ntm-anchor-flash for 3s — keep duration in sync with setTimeout there */
+/* After in-sheet jump (#ntm-section-title or #section-bites-pyomyositis) + data-ntm-flash: index adds .ntm-anchor-flash for 3s — keep duration in sync with setTimeout in index.html */
 @keyframes ntm-anchor-flash {
   0%, 100% { outline: 0 solid transparent; outline-offset: 0; }
   5% { outline: 3px solid rgba(0, 51, 160, 0.65); outline-offset: 2px; }
@@ -75,7 +75,8 @@
   76% { outline: 2px solid rgba(0, 51, 160, 0.28); outline-offset: 1px; }
   88%, 100% { outline: 0 solid transparent; outline-offset: 0; }
 }
-.ntm-section .card.sev.ntm-anchor-flash {
+.ntm-section .card.sev.ntm-anchor-flash,
+.undefined-section .card.sev.ntm-anchor-flash {
   position: relative;
   z-index: 2;
   animation: ntm-anchor-flash 3s ease-in-out forwards;

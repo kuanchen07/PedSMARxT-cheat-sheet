@@ -79,7 +79,6 @@
   user-select: none;
   padding: 0 2px;
 }
-.step-card .np-pill-join { font-size: 11px; }
 .np-pill-dose-clip {
   min-width: 0; max-width: 0; max-height: 0; overflow: hidden;
   align-self: flex-start;
@@ -104,8 +103,6 @@
 /* Necrotizing/toxin definitive rows: Clostridium (yellow) + GAS (orange); dark text on soft fills for contrast */
 .np-pill.np-yellow { background: #FEFCE8; color: #5A4A08; border-color: #CA9A06; }
 .np-pill.np-orange { background: #FFEDD5; color: #7C2D12; border-color: #E85D1A; }
-.step-card .np-pill { font-size: 10px; padding: 3px 8px; }
-.step-card .np-pill .np-pill-name { font-size: 10px; }
 /* minmax(0,1fr) + .grid > .card min-width: 0 — grid items default min-width:auto lets nowrap titles inflate tracks */
 .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
 .grid > .card { min-width: 0; }
@@ -159,14 +156,8 @@
 /* .table-jump-* + .sheet-anchor — styles/diseases.css (non-purulent + undefined) */
 .org-row { display: flex; align-items: center; gap: 7px; margin-bottom: 5px; }
 .org-row:last-child { margin-bottom: 0; }
-/* Dropped unused .org-drug / .step-drugs — org rows use .pill / .np-pill only */
-.step-card { background: #fff; border: 1px solid #e8e7e0; border-radius: 6px; padding: 7px 9px; margin-bottom: 5px; }
-.step-card:last-child { margin-bottom: 0; }
-.step-org { font-family: 'Space Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 4px; }
-.step-mrsa { color: #791F1F; }
-.step-mssa { color: #0C447C; }
-.step-gas { color: #085041; }
-/* Native disclosure: collapsible reference sections inside severity cards — opt-in via .card-disclosure */
+/* Dropped unused .org-drug / .step-drugs; org rows use .pill / .np-pill (.step-card retired with purulent step-down markup) */
+/* Native disclosure: collapsible blocks inside severity cards — opt-in via .card-disclosure */
 .card-disclosure { border-radius: 0; }
 .card-disclosure + .divider { flex-shrink: 0; }
 /* Whole Procedures block collapsible — summary = label + peek rows; body = remainder */
@@ -263,7 +254,6 @@
   margin-top: 8px;
   padding-top: 2px;
 }
-.card-disclosure__body > .step-card:last-child { margin-bottom: 0; }
 @media print {
   .card-disclosure summary { break-inside: avoid; page-break-inside: avoid; }
   .card-disclosure summary::before { display: none; }

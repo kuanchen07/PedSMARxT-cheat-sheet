@@ -1,0 +1,157 @@
+/*
+ * Disease partial overrides — complements styles/main.css.
+ * Mirrors diseases/*/section.html: purulent, non-purulent, necrotizing/toxin, preseptal/orbital, undefined (bites/pyomyositis).
+ */
+
+/* --- Purulent (furuncle / impetigo) --- */
+/* Impetigo block: paired min-height band with PO/NTM/undefined for column alignment when titles scale */
+.p-section:first-of-type .card-head {
+  min-height: 4rem;
+  padding: 2px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.p-section .card { overflow: visible; }
+
+/* --- Non-purulent cellulitis --- */
+#disease-non-purulent { margin-top: 2rem; }
+.np-section .section-title { margin-bottom: 1.25rem; }
+.np-section .card { overflow: visible; }
+
+/* Severe definitive col: in-sheet jump list → necrotizing / toxin-mediated section */
+.np-section .table-jump-list {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #1a1a18;
+}
+.np-section .table-jump-item { margin-top: 6px; }
+.np-section .table-jump-item:first-child { margin-top: 2px; }
+.np-section .table-jump-hdr {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #444441;
+}
+.np-section a.sheet-anchor {
+  color: #0033a0;
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 51, 160, 0.35);
+  text-underline-offset: 2px;
+}
+.np-section a.sheet-anchor:hover {
+  text-decoration-color: #0033a0;
+}
+
+/* --- Necrotizing / toxin-mediated --- */
+#disease-necrotizing-toxin { margin-top: 2rem; }
+/* Main heading + dual grid; pathway titles on card heads */
+.ntm-section .section-title { margin-bottom: 1rem; }
+.ntm-section .card { overflow: visible; }
+
+.ntm-section .grid.ntm-dual-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .ntm-section .grid.ntm-dual-grid { grid-template-columns: 1fr; }
+}
+
+/* After in-sheet jump to #ntm-section-title + data-ntm-flash: index.html adds .ntm-anchor-flash for 3s — keep duration in sync with setTimeout there */
+@keyframes ntm-anchor-flash {
+  0%, 100% { outline: 0 solid transparent; outline-offset: 0; }
+  5% { outline: 3px solid rgba(0, 51, 160, 0.65); outline-offset: 2px; }
+  14% { outline: 0 solid transparent; outline-offset: 0; }
+  28% { outline: 3px solid rgba(0, 51, 160, 0.55); outline-offset: 2px; }
+  38% { outline: 0 solid transparent; }
+  52% { outline: 3px solid rgba(0, 51, 160, 0.45); outline-offset: 2px; }
+  64% { outline: 0 solid transparent; }
+  76% { outline: 2px solid rgba(0, 51, 160, 0.28); outline-offset: 1px; }
+  88%, 100% { outline: 0 solid transparent; outline-offset: 0; }
+}
+.ntm-section .card.sev.ntm-anchor-flash {
+  position: relative;
+  z-index: 2;
+  animation: ntm-anchor-flash 3s ease-in-out forwards;
+}
+
+.ntm-section .card-head {
+  min-height: 4rem;
+  padding: 2px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* TSS/SSSS/toxin-mediated column (Table 5): +1px ceiling vs NF pathway — fitSevName() parity with Table 4 */
+#ntm-table-5 .sev-name {
+  --sev-name-font-max: 18px;
+}
+
+/* NTM NF empirical: preferred pills on summary row */
+.ntm-empirical-disclosure > .card-disclosure__summary {
+  gap: 6px;
+}
+
+@media print {
+  .ntm-section .grid.ntm-dual-grid { grid-template-columns: 1fr; }
+}
+
+/* --- Preseptal / orbital (mount also receives bites/undefined fragment) --- */
+#disease-preseptal-orbital { margin-top: 2rem; }
+
+.po-section .section-title { margin-bottom: 1.25rem; }
+.po-section .card { overflow: visible; }
+
+.po-section .grid { align-items: start; }
+
+.po-section .card-head {
+  min-height: 4rem;
+  padding: 2px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* --- Bites & pyomyositis (diseases/undefined; injected after preseptal into #disease-preseptal-orbital) --- */
+.undefined-section .section-title { margin-bottom: 1.25rem; }
+.undefined-section .card { overflow: visible; }
+
+.undefined-section .grid.undefined-dual-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .undefined-section .grid.undefined-dual-grid { grid-template-columns: 1fr; }
+}
+
+.undefined-section .card-head {
+  min-height: 4rem;
+  padding: 2px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* In-sheet jump to NTM — match non-purulent .sheet-anchor styling */
+.undefined-section a.sheet-anchor {
+  color: #0033a0;
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 51, 160, 0.35);
+  text-underline-offset: 2px;
+}
+.undefined-section a.sheet-anchor:hover {
+  text-decoration-color: #0033a0;
+}
+
+@media print {
+  .undefined-section .grid.undefined-dual-grid { grid-template-columns: 1fr; }
+}

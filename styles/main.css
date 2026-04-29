@@ -29,10 +29,7 @@
 }
 .header-title { font-family: 'Space Mono', monospace; font-size: 16px; font-weight: 700; color: #1a1a18; letter-spacing: 0.03em; }
 .section-block + .section-block { margin-top: 1.5rem; }
-/* Partials load into separate #disease-* nodes (not adjacent .section-block siblings) */
-#disease-non-purulent,
-#disease-necrotizing-toxin,
-#disease-preseptal-orbital { margin-top: 2rem; }
+/* Partials: #disease-* top margins live in styles/diseases.css (not adjacent .section-block siblings) */
 .section-title { font-family: 'Space Mono', monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; color: #1a1a18; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid #e8e7e0; }
 .section-title-row {
   display: flex;
@@ -59,13 +56,8 @@
   color: #a32d2d;
 }
 .section-title--review { color: #a32d2d; }
-.np-section .section-title,
-.po-section .section-title,
-.undefined-section .section-title { margin-bottom: 1.25rem; }
-/* NTM: main heading + dual grid; pathway names live on each card head (no duplicate subtitle row) */
-.ntm-section .section-title { margin-bottom: 1rem; }
+/* Per-disease .section-title margins + .card { overflow: visible } — styles/diseases.css */
 .divider-dashed { height: 0; border: none; border-top: 1px dashed #c4c2ba; margin: 6px 0 4px; background: none; }
-.np-section .card, .ntm-section .card, .p-section .card, .po-section .card, .undefined-section .card { overflow: visible; }
 .np-pill-group { display: flex; flex-wrap: wrap; align-content: flex-start; align-items: flex-start; gap: 5px 6px; }
 .np-pill {
   display: inline-flex; flex-direction: column; align-items: flex-start; align-self: flex-start;
@@ -117,50 +109,9 @@
 /* minmax(0,1fr) + .grid > .card min-width: 0 — grid items default min-width:auto lets nowrap titles inflate tracks */
 .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
 .grid > .card { min-width: 0; }
-.po-section .grid { align-items: start; }
-/* Necrotizing / toxin-mediated: two pathway columns (not 3-column mild/mod/sev) */
-.ntm-section .grid.ntm-dual-grid,
-.undefined-section .grid.undefined-dual-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
-  align-items: start;
-}
-@media (max-width: 900px) {
-  .ntm-section .grid.ntm-dual-grid,
-  .undefined-section .grid.undefined-dual-grid { grid-template-columns: 1fr; }
-}
-/* After in-sheet jump to #ntm-section-title + data-ntm-flash: index.html adds .ntm-anchor-flash for 3s — keep duration in sync with setTimeout there */
-@keyframes ntm-anchor-flash {
-  0%, 100% { outline: 0 solid transparent; outline-offset: 0; }
-  5% { outline: 3px solid rgba(0, 51, 160, 0.65); outline-offset: 2px; }
-  14% { outline: 0 solid transparent; outline-offset: 0; }
-  28% { outline: 3px solid rgba(0, 51, 160, 0.55); outline-offset: 2px; }
-  38% { outline: 0 solid transparent; }
-  52% { outline: 3px solid rgba(0, 51, 160, 0.45); outline-offset: 2px; }
-  64% { outline: 0 solid transparent; }
-  76% { outline: 2px solid rgba(0, 51, 160, 0.28); outline-offset: 1px; }
-  88%, 100% { outline: 0 solid transparent; outline-offset: 0; }
-}
-.ntm-section .card.sev.ntm-anchor-flash {
-  position: relative;
-  z-index: 2;
-  animation: ntm-anchor-flash 3s ease-in-out forwards;
-}
+/* Dual-column grids + PO column align + card-head min-height bands — styles/diseases.css */
 .card { background: #f9f8f4; border: 1px solid #e8e7e0; border-radius: 10px; overflow: hidden; }
 .card-head { padding: 10px 14px 9px; border-bottom: 1px solid #e8e7e0; }
-/* Impetigo + preseptal/orbital + NTM dual pathway: equal header height for column alignment; center the
-   label/title stack so extra min-height space splits evenly above and below (symmetric padding).
-   NTM needs this when fitSevName() shrinks one pathway title more than the other (same min-height band). */
-.p-section:first-of-type .card-head,
-.po-section .card-head,
-.ntm-section .card-head,
-.undefined-section .card-head {
-  min-height: 4rem;
-  padding: 2px 14px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
 .sev-label { font-family: 'Space Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2px; }
 /* Shared max — index.html fitSevName() resets to this via computed font-size */
 .sev-name {
@@ -169,12 +120,7 @@
   font-size: var(--sev-name-font-max);
   font-weight: 700;
 }
-/* Long pathway titles: always one line (nowrap); initSevNameFit / fitSevName in index.html scales font-size */
-/* TSS/SSSS/toxin-mediated column (Table 5): +1px ceiling vs NF pathway so title isn’t visibly undersized vs Table 4 */
-#ntm-table-5 .sev-name {
-  --sev-name-font-max: 18px;
-}
-
+/* Long pathway titles — initSevNameFit scales; Table 5 (--sev-name-font-max tweak) in styles/diseases.css */
 .sev-name-wrap {
   min-width: 0;
   width: 100%;
@@ -210,45 +156,7 @@
 .p-yellow { background: #FEFCE8; color: #5A4A08; border: 1px solid #CA9A06; }
 .p-orange { background: #FFEDD5; color: #7C2D12; border: 1px solid #E85D1A; }
 .italic-note { font-size: 11px; color: #888780; font-style: italic; margin-top: 4px; line-height: 1.5; }
-/* In-sheet anchors: non-purulent severe definitive → #ntm-section-title + pulse via data-ntm-flash card ids */
-.np-section .table-jump-list {
-  list-style: none;
-  margin: 4px 0 0;
-  padding: 0;
-  font-size: 12px;
-  line-height: 1.45;
-  color: #1a1a18;
-}
-.np-section .table-jump-item { margin-top: 6px; }
-.np-section .table-jump-item:first-child { margin-top: 2px; }
-.np-section .table-jump-hdr {
-  font-family: 'Space Mono', monospace;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: #444441;
-}
-.np-section a.sheet-anchor {
-  color: #0033a0;
-  font-weight: 500;
-  text-decoration: underline;
-  text-decoration-color: rgba(0, 51, 160, 0.35);
-  text-underline-offset: 2px;
-}
-.np-section a.sheet-anchor:hover {
-  text-decoration-color: #0033a0;
-}
-/* In-sheet jumps from pyomyositis (undefined partial) to NTM — match non-purulent link styling */
-.undefined-section a.sheet-anchor {
-  color: #0033a0;
-  font-weight: 500;
-  text-decoration: underline;
-  text-decoration-color: rgba(0, 51, 160, 0.35);
-  text-underline-offset: 2px;
-}
-.undefined-section a.sheet-anchor:hover {
-  text-decoration-color: #0033a0;
-}
+/* .table-jump-* + .sheet-anchor — styles/diseases.css (non-purulent + undefined) */
 .org-row { display: flex; align-items: center; gap: 7px; margin-bottom: 5px; }
 .org-row:last-child { margin-bottom: 0; }
 /* Dropped unused .org-drug / .step-drugs — org rows use .pill / .np-pill only */
@@ -305,10 +213,7 @@
   margin-bottom: 0;
   line-height: 1.55;
 }
-/* NTM NF: summary holds preferred pills; alternative lives in body only */
-.ntm-empirical-disclosure > .card-disclosure__summary {
-  gap: 6px;
-}
+/* .ntm-empirical-disclosure summary gap — styles/diseases.css */
 .card-disclosure__summary {
   cursor: pointer;
   list-style: none;
@@ -362,9 +267,7 @@
 @media print {
   .card-disclosure summary { break-inside: avoid; page-break-inside: avoid; }
   .card-disclosure summary::before { display: none; }
-  /* NTM + bites/pyomyositis: print one column so disclosures and pills stay readable */
-  .ntm-section .grid.ntm-dual-grid,
-  .undefined-section .grid.undefined-dual-grid { grid-template-columns: 1fr; }
+  /* Dual-column disease grids → 1 col: styles/diseases.css */
   /* .sev-name-wrap remeasured in beforeprint so titles refit to print column width */
   .sheet-jump { display: none !important; }
 }

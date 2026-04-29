@@ -28,6 +28,26 @@
     <span style="color:#0033A0;font-size:10px;font-weight:500;">University of Kentucky · College of Pharmacy</span>
   </div>
 </div>
+
+<!-- Section jump: FAB + np-pill stack over dimmed page; pointer/tap only — see .sheet-jump in main.css -->
+<div class="sheet-jump">
+  <div class="sheet-jump-backdrop" id="sheet-jump-backdrop" hidden aria-hidden="true"></div>
+  <div class="sheet-jump-anchor">
+    <nav class="sheet-jump-stack" id="sheet-jump-panel" aria-label="Jump to section" aria-hidden="true">
+      <ul class="sheet-jump-pill-list">
+        <li><a class="sheet-jump-pill np-pill np-gray" href="#section-purulent-impetigo-ecthyma-folliculitis" tabindex="-1">Purulent — Impetigo / ecthyma / folliculitis</a></li>
+        <li><a class="sheet-jump-pill np-pill np-gray" href="#section-purulent-furuncle-carbuncle-abscess" tabindex="-1">Purulent — Furuncle / carbuncle / abscess</a></li>
+        <li><a class="sheet-jump-pill np-pill np-gray" href="#section-non-purulent-cellulitis" tabindex="-1">Non-purulent cellulitis</a></li>
+        <li><a class="sheet-jump-pill np-pill np-gray" href="#ntm-section-title" tabindex="-1">Necrotizing and toxin-mediated cellulitis</a></li>
+        <li><a class="sheet-jump-pill np-pill np-gray" href="#section-preseptal-orbital-cellulitis" tabindex="-1">Preseptal / orbital cellulitis</a></li>
+        <li><a class="sheet-jump-pill np-pill np-gray" href="#section-bites-pyomyositis" tabindex="-1">Bites and pyomyositis</a></li>
+      </ul>
+    </nav>
+    <button type="button" class="sheet-jump-fab np-pill np-gray" id="sheet-jump-toggle" aria-expanded="false" aria-controls="sheet-jump-panel">
+      Sections
+    </button>
+  </div>
+</div>
 <script>
 (function() {
   var docClickBound = false;
@@ -162,6 +182,125 @@
   }
 
   initNtmAnchorFlash();
+
+  /* After partials load, #hash targets exist — scroll for deep links and GitHub Pages */
+  function scrollSheetHashIntoView() {
+    var id = (location.hash || '').replace(/^#/, '');
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'auto', block: 'start' });
+  }
+
+  /* Assigned in initSheetJump so fetch/hash/fonts can refresh FAB after layout */
+  var scheduleSheetJumpSpy = function() {};
+
+  /* Bottom-right FAB: which section is “current” follows scroll (rAF-scheduled spy) */
+  function initSheetJump() {
+    var root = document.querySelector('.sheet-jump');
+    var fab = document.getElementById('sheet-jump-toggle');
+    var panel = document.getElementById('sheet-jump-panel');
+    var backdrop = document.getElementById('sheet-jump-backdrop');
+    if (!root || !fab || !panel || !backdrop) return;
+
+    var pills = panel.querySelectorAll('a.sheet-jump-pill');
+    /* Document order = scroll order; labels from pills so copy stays in sync with href targets */
+    var spyIds = [];
+    var spyLabelById = {};
+    pills.forEach(function(a) {
+      var href = a.getAttribute('href') || '';
+      var id = href.replace(/^#/, '');
+      if (!id) return;
+      spyIds.push(id);
+      spyLabelById[id] = (a.textContent || '').trim();
+    });
+
+    var lastSpyId = null;
+    var spyRafId = null;
+
+    function getActiveSectionId() {
+      if (!spyIds.length) return null;
+      var docEl = document.documentElement;
+      var scrollH = docEl.scrollHeight;
+      var innerH = window.innerHeight;
+      var scrollY = window.scrollY || window.pageYOffset || 0;
+      var nearBottom = scrollY + innerH >= scrollH - 4;
+      if (nearBottom) {
+        for (var j = spyIds.length - 1; j >= 0; j--) {
+          if (document.getElementById(spyIds[j])) return spyIds[j];
+        }
+      }
+      /* Last section whose top edge is at/above this band (pairs with scroll-margin-top on anchors) */
+      var line = Math.max(64, window.innerHeight * 0.12);
+      var active = spyIds[0];
+      for (var i = 0; i < spyIds.length; i++) {
+        var sec = document.getElementById(spyIds[i]);
+        if (!sec) continue;
+        if (sec.getBoundingClientRect().top <= line) active = spyIds[i];
+      }
+      return active;
+    }
+
+    function updateSheetJumpSpy() {
+      if (!spyIds.length) return;
+      var firstEl = document.getElementById(spyIds[0]);
+      if (!firstEl) return;
+
+      var id = getActiveSectionId();
+      if (!id) return;
+      if (id === lastSpyId) return;
+      lastSpyId = id;
+
+      var label = spyLabelById[id] || 'Sections';
+      fab.textContent = label;
+      fab.title = label;
+      fab.setAttribute('aria-label', 'Current section: ' + label);
+
+      pills.forEach(function(p) {
+        p.classList.toggle('sheet-jump-pill--active', p.getAttribute('href') === '#' + id);
+      });
+    }
+
+    function scheduleSpy() {
+      if (spyRafId !== null) return;
+      spyRafId = requestAnimationFrame(function() {
+        spyRafId = null;
+        updateSheetJumpSpy();
+      });
+    }
+
+    scheduleSheetJumpSpy = scheduleSpy;
+
+    function setOpen(open) {
+      root.classList.toggle('is-open', open);
+      fab.setAttribute('aria-expanded', open ? 'true' : 'false');
+      backdrop.hidden = !open;
+      backdrop.setAttribute('aria-hidden', open ? 'false' : 'true');
+      panel.setAttribute('aria-hidden', open ? 'false' : 'true');
+    }
+
+    fab.addEventListener('click', function() {
+      setOpen(!root.classList.contains('is-open'));
+    });
+    backdrop.addEventListener('click', function() {
+      setOpen(false);
+    });
+
+    pills.forEach(function(a) {
+      a.addEventListener('click', function() {
+        setOpen(false);
+      });
+    });
+
+    window.addEventListener('scroll', scheduleSpy, { passive: true });
+    window.addEventListener('resize', scheduleSpy, { passive: true });
+  }
+
+  initSheetJump();
+  window.addEventListener('hashchange', function() {
+    scrollSheetHashIntoView();
+    requestAnimationFrame(scheduleSheetJumpSpy);
+  });
+
   // Fetch requires http(s) or a local static server; file:// often fails.
   Promise.all([
     fetch('./diseases/purulent-cellulitis/section.html'),
@@ -187,10 +326,17 @@
     initNpPills();
     initCardDisclosurePrint();
     initSevNameFitListeners();
+    scrollSheetHashIntoView();
+    requestAnimationFrame(function() {
+      scrollSheetHashIntoView();
+      scheduleSheetJumpSpy();
+    });
+    scheduleSheetJumpSpy();
     document.fonts.ready.then(function() {
       requestAnimationFrame(function() {
         requestAnimationFrame(function() {
           initSevNameFit();
+          scheduleSheetJumpSpy();
         });
       });
     });

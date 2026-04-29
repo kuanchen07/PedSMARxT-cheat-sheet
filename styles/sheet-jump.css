@@ -1,0 +1,129 @@
+/*
+ * Fixed “Sections” FAB + pill stack over dimmed backdrop — complements styles/main.css (.np-pill base).
+ * Print: hide overlay so the sheet prints without chrome.
+ */
+/* Section jump: dimmed backdrop + bottom-right np-pill stack (FAB uses same pill language as treatment rows) */
+.sheet-jump {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10000;
+}
+/* Only FAB participates in layout; pills sit above via absolute so closed state doesn’t leave a tall hit box */
+.sheet-jump-anchor {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 10001;
+  pointer-events: auto;
+  max-width: min(22rem, calc(100vw - 2rem));
+}
+.sheet-jump-backdrop {
+  position: fixed;
+  inset: 0;
+  pointer-events: auto;
+  background: rgba(26, 26, 24, 0.22);
+  z-index: 10000;
+}
+.sheet-jump-backdrop[hidden] {
+  display: none !important;
+}
+.sheet-jump-stack {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 6px);
+  width: max-content;
+  max-width: min(22rem, calc(100vw - 2rem));
+  visibility: hidden;
+  pointer-events: none;
+}
+.sheet-jump.is-open .sheet-jump-stack {
+  visibility: visible;
+  pointer-events: auto;
+}
+/* Pills stack upward from FAB; DOM list order = page order; column-reverse puts first pathway nearest the button */
+.sheet-jump-pill-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-end;
+  gap: 6px;
+  width: 100%;
+}
+/* Link styled as np-pill: allow wrap for long pathway titles */
+.sheet-jump-pill {
+  display: inline-flex;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: normal;
+  text-align: right;
+  max-width: 100%;
+  box-sizing: border-box;
+  transition: opacity 0.2s ease, transform 0.22s ease, box-shadow 0.2s ease;
+}
+.sheet-jump:not(.is-open) .sheet-jump-pill {
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+}
+.sheet-jump.is-open .sheet-jump-pill {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+/* Stagger: nearest-to-FAB pill resolves first */
+.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(1) .sheet-jump-pill { transition-delay: 0.02s; }
+.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(2) .sheet-jump-pill { transition-delay: 0.05s; }
+.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(3) .sheet-jump-pill { transition-delay: 0.08s; }
+.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(4) .sheet-jump-pill { transition-delay: 0.11s; }
+.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(5) .sheet-jump-pill { transition-delay: 0.14s; }
+.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(6) .sheet-jump-pill { transition-delay: 0.17s; }
+.sheet-jump-pill:hover {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+.sheet-jump-pill:focus-visible {
+  outline: 2px solid #5DCAA5;
+  outline-offset: 3px;
+}
+/* FAB: scroll-spy shows current pathway; fixed width ≈ original “Sections”, ellipsis overflows (full string in title/aria-label) */
+.sheet-jump-fab.np-pill {
+  display: inline-block;
+  flex-shrink: 0;
+  cursor: pointer;
+  flex-direction: unset;
+  align-items: unset;
+  width: 10.5rem;
+  max-width: 10.5rem;
+  min-width: 0;
+  padding: 0.45rem 0.95rem;
+  letter-spacing: 0.04em;
+  border-radius: 999px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: right;
+  box-sizing: border-box;
+  vertical-align: middle;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.sheet-jump-pill.sheet-jump-pill--active {
+  border-color: #5DCAA5;
+}
+.sheet-jump-fab:hover {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+}
+.sheet-jump.is-open .sheet-jump-fab {
+  border-color: #5DCAA5;
+}
+.sheet-jump-fab:focus-visible {
+  outline: 2px solid #5DCAA5;
+  outline-offset: 3px;
+}
+
+@media print {
+  .sheet-jump { display: none !important; }
+}

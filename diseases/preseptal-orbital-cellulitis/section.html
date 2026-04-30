@@ -1,4 +1,4 @@
-  <div class="section-block po-section">
+  <div class="section-block po-section" id="section-preseptal-orbital-cellulitis">
     <div class="section-title section-title--review">Preseptal / orbital cellulitis*</div>
     <div class="grid">
 
@@ -23,21 +23,32 @@
             <div class="dot dot-no"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><line x1="2" y1="2" x2="8" y2="8" stroke="#A32D2D" stroke-width="1.8" stroke-linecap="round"/><line x1="8" y1="2" x2="2" y2="8" stroke="#A32D2D" stroke-width="1.8" stroke-linecap="round"/></svg></div>
             <span class="check-text">Blood culture <span class="check-sub">(not needed)</span></span>
           </div>
+          <!-- As needed; mirrors orbital consult pattern -->
+          <div class="check-row">
+            <div class="dot dot-yes"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2" stroke="#0F6E56" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <span class="check-text">Ophthalmology consult <span class="check-sub">(as clinically indicated)</span></span>
+          </div>
+          <div class="check-row">
+            <div class="dot dot-yes"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2" stroke="#0F6E56" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <span class="check-text">ID consult <span class="check-sub">(as clinically indicated)</span></span>
+          </div>
         </div>
         <div class="divider-dashed"></div>
         <div>
           <div class="sec-label">Sinusitis, dental, or unclear source</div>
           <div class="np-pill-group">
-            <div class="np-pill np-teal"><span class="np-pill-name">PO Amoxicillin/Clavulanate</span><div class="np-pill-dose-clip"><span class="np-pill-dose">30 mg/kg/dose TID (max 1300 mg amoxicillin)</span></div></div>
-            <div class="np-pill np-gray"><span class="np-pill-name">PO Doxycycline</span><div class="np-pill-dose-clip"><span class="np-pill-dose">Type I PCN allergy: 2.2 mg/kg/dose BID (max 100 mg)</span></div></div>
+            <div class="np-pill np-blue" data-dose-calc='{"kind":"mgkg_per_dose","mgPerKg":[75],"capG":3}'><span class="np-pill-name">IV Ampicillin/Sulbactam</span><div class="np-pill-dose-clip"><span class="np-pill-dose">75 mg/kg/dose Q6h (max 3 g)</span></div></div>
+            <div class="np-pill np-teal" data-dose-calc='{"kind":"mgkg_per_dose","mgPerKg":[30],"capMg":1200,"labelSuffix":"amoxicillin component"}'><span class="np-pill-name">PO Amoxicillin/Clavulanate</span><div class="np-pill-dose-clip"><span class="np-pill-dose">30 mg/kg/dose TID (max 1200 mg amoxicillin)</span></div></div>
+            <div class="np-pill np-gray" data-dose-calc='{"kind":"mgkg_per_dose","mgPerKg":[2.2],"capMg":100}'><span class="np-pill-name">PO Doxycycline</span><div class="np-pill-dose-clip"><span class="np-pill-dose">Type I PCN allergy: 2.2 mg/kg/dose BID (max 100 mg)</span></div></div>
           </div>
         </div>
         <div class="divider-dashed"></div>
         <div>
           <div class="sec-label">Clear skin source <span>(lesion, bite, trauma)</span></div>
           <div class="np-pill-group">
-            <div class="np-pill np-amber"><span class="np-pill-name">PO TMP-SMX</span><div class="np-pill-dose-clip"><span class="np-pill-dose">6 mg/kg/dose BID (max 320 mg TMP)</span></div></div>
-            <div class="np-pill np-amber"><span class="np-pill-name">PO Doxycycline</span><div class="np-pill-dose-clip"><span class="np-pill-dose">2.2 mg/kg/dose BID (max 100 mg)</span></div></div>
+            <div class="np-pill np-red"><span class="np-pill-name">IV Vancomycin</span><div class="np-pill-dose-clip"><span class="np-pill-dose">Pharmacy to dose</span></div></div>
+            <div class="np-pill np-amber" data-dose-calc='{"kind":"mgkg_per_dose","mgPerKg":[6],"capMg":320,"labelSuffix":"TMP"}'><span class="np-pill-name">PO TMP-SMX</span><div class="np-pill-dose-clip"><span class="np-pill-dose">6 mg/kg/dose BID (max 320 mg TMP)</span></div></div>
+            <div class="np-pill np-amber" data-dose-calc='{"kind":"mgkg_per_dose","mgPerKg":[2.2],"capMg":100}'><span class="np-pill-name">PO Doxycycline</span><div class="np-pill-dose-clip"><span class="np-pill-dose">2.2 mg/kg/dose BID (max 100 mg)</span></div></div>
           </div>
         </div>
       </div>
@@ -63,7 +74,7 @@
             </div>
             <div class="check-row">
               <div class="dot dot-yes"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2" stroke="#0F6E56" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-              <span class="check-text">MRSA nares swab</span>
+              <span class="check-text">MRSA nares PCR</span>
             </div>
           </summary>
           <div class="card-disclosure__body">
@@ -97,43 +108,49 @@
         <details class="card-disclosure orbital-therapy-disclosure">
           <summary class="card-disclosure__summary">
             <span class="sec-label">IV therapy &amp; escalation</span>
-            <p class="italic-note card-disclosure__preview">No abscess IV regimens; clear skin; abscess caveat; intracranial MRI and triple therapy pathway.</p>
+            <p class="italic-note card-disclosure__preview">No intracranial extension: IV amp-sulb &amp; oral step-down; intracranial or abscess: ceftriaxone + metro + vanc (per ID).</p>
           </summary>
           <div class="card-disclosure__body">
+            <!-- Orbital without IC or abscess — single beta-lactam (not source-split MRSA vanc) -->
             <div>
-              <div class="sec-label">Intracranial extension <span>(yes or unclear)</span></div>
+              <div class="sec-label">Orbital cellulitis &mdash; no intracranial extension</div>
+              <div class="np-pill-group">
+                <div class="np-pill np-blue" data-dose-calc='{"kind":"mgkg_per_dose","mgPerKg":[75],"capG":3}'><span class="np-pill-name">IV Ampicillin/Sulbactam</span><div class="np-pill-dose-clip"><span class="np-pill-dose">75 mg/kg/dose Q6h (max 3 g)</span></div></div>
+              </div>
+              <p class="italic-note orbital-therapy-footnote">De-escalate to oral typically after &ge;72 hours of IV therapy (discuss with ID)</p>
+            </div>
+            <div class="divider-dashed"></div>
+            <div>
+              <div class="sec-label">Orbital cellulitis &mdash; intracranial extension <span>(or prior to CT/MRI)</span></div>
               <div class="check-row">
                 <div class="dot dot-yes"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2" stroke="#0F6E56" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-                <span class="check-text">MRI head <span class="check-sub">(with contrast)</span></span>
+                <span class="check-text">MRI head <span class="check-sub">(with contrast; strongly recommended)</span></span>
               </div>
               <div class="check-row">
                 <div class="dot dot-yes"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2" stroke="#0F6E56" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-                <span class="check-text">Neurosurgery consult <span class="check-sub">(consider)</span></span>
+                <span class="check-text">Neurosurgery consult <span class="check-sub">(strongly recommended)</span></span>
               </div>
               <div class="np-pill-group">
-                <div class="np-pill np-blue"><span class="np-pill-name">IV Ceftriaxone</span><div class="np-pill-dose-clip"><span class="np-pill-dose">50 mg/kg/dose Q12h (max 2000 mg) PLUS</span></div></div>
-                <div class="np-pill np-teal"><span class="np-pill-name">PO/IV Metronidazole</span><div class="np-pill-dose-clip"><span class="np-pill-dose">10 mg/kg/dose Q8h (max 500 mg) PLUS</span></div></div>
+                <div class="np-pill np-blue" data-dose-calc='{"kind":"mgkg_per_dose","mgPerKg":[50],"capMg":2000}'><span class="np-pill-name">IV Ceftriaxone</span><div class="np-pill-dose-clip"><span class="np-pill-dose">50 mg/kg/dose Q12h (max 2000 mg)</span></div></div>
+                <span class="np-pill-join" aria-hidden="true">+</span>
+                <div class="np-pill np-teal" data-dose-calc='{"kind":"mgkg_per_dose","mgPerKg":[10],"capMg":500}'><span class="np-pill-name">PO/IV Metronidazole</span><div class="np-pill-dose-clip"><span class="np-pill-dose">10 mg/kg/dose Q8h (max 500 mg)</span></div></div>
+                <span class="np-pill-join" aria-hidden="true">+</span>
                 <div class="np-pill np-red"><span class="np-pill-name">IV Vancomycin</span><div class="np-pill-dose-clip"><span class="np-pill-dose">Pharmacy to dose</span></div></div>
               </div>
             </div>
             <div class="divider-dashed"></div>
             <div>
-              <div class="sec-label">No subperiosteal/orbital abscess</div>
-              <div class="sec-label">Sinusitis, dental, or unclear source</div>
+              <div class="sec-label">Subperiosteal or orbital abscess</div>
+              <p class="italic-note orbital-therapy-footnote">Ophthalmology consult strongly recommended &mdash; guides surgical drainage.</p>
               <div class="np-pill-group">
-                <div class="np-pill np-blue"><span class="np-pill-name">IV Ampicillin/Sulbactam</span><div class="np-pill-dose-clip"><span class="np-pill-dose">75 mg/kg/dose Q6h (max 3 g)</span></div></div>
-                <div class="np-pill np-gray"><span class="np-pill-name">IV/PO Doxycycline</span><div class="np-pill-dose-clip"><span class="np-pill-dose">Type I PCN allergy: 2.2 mg/kg/dose BID (max 100 mg)</span></div></div>
-              </div>
-            </div>
-            <div class="divider-dashed"></div>
-            <div>
-              <div class="sec-label">Clear skin source</div>
-              <div class="np-pill-group">
+                <div class="np-pill np-blue" data-dose-calc='{"kind":"mgkg_per_dose","mgPerKg":[50],"capMg":2000}'><span class="np-pill-name">IV Ceftriaxone</span><div class="np-pill-dose-clip"><span class="np-pill-dose">50 mg/kg/dose Q12h (max 2000 mg)</span></div></div>
+                <span class="np-pill-join" aria-hidden="true">+</span>
+                <div class="np-pill np-teal" data-dose-calc='{"kind":"mgkg_per_dose","mgPerKg":[10],"capMg":500}'><span class="np-pill-name">PO/IV Metronidazole</span><div class="np-pill-dose-clip"><span class="np-pill-dose">10 mg/kg/dose Q8h (max 500 mg)</span></div></div>
+                <span class="np-pill-join" aria-hidden="true">+</span>
                 <div class="np-pill np-red"><span class="np-pill-name">IV Vancomycin</span><div class="np-pill-dose-clip"><span class="np-pill-dose">Pharmacy to dose</span></div></div>
               </div>
+              <p class="italic-note orbital-therapy-footnote">Discuss de-escalation to oral therapy with ID</p>
             </div>
-            <div class="divider-dashed"></div>
-            <p class="italic-note orbital-therapy-footnote">Subperiosteal or orbital abscess: ophthalmology guides need for surgical drainage.</p>
           </div>
         </details>
       </div>

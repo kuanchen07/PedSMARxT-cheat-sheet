@@ -1,5 +1,6 @@
   <div class="section-block p-section">
-    <div class="section-title-row">
+    <!-- id: in-sheet jump targets (FAB / hash); keep stable if bookmarked -->
+    <div class="section-title-row" id="section-purulent-impetigo-ecthyma-folliculitis">
       <div class="section-title section-title--review">Purulent cellulitis (Impetigo/Ecthyma/Folliculitis)*</div>
       <span class="section-review-note">* = section needs review</span>
     </div>
@@ -92,10 +93,10 @@
         <div>
           <div class="sec-label">Empirical Treatment <span>(pick one)</span></div>
           <div class="np-pill-group">
-            <div class="np-pill np-teal"><span class="np-pill-name">PO Cefadroxil</span><div class="np-pill-dose-clip"><span class="np-pill-dose">15 mg/kg/dose BID (max 500 mg)</span></div></div>
-            <div class="np-pill np-teal"><span class="np-pill-name">PO Cephalexin</span><div class="np-pill-dose-clip"><span class="np-pill-dose">12.5 mg/kg/dose QID (max 500 mg)</span></div></div>
+            <div class="np-pill np-teal" data-dose-calc='{"kind":"mgkg_per_dose","mgPerKg":[15],"capMg":500}'><span class="np-pill-name">PO Cefadroxil</span><div class="np-pill-dose-clip"><span class="np-pill-dose">15 mg/kg/dose BID (max 500 mg)</span></div></div>
+            <div class="np-pill np-teal" data-dose-calc='{"kind":"mgkg_per_dose","mgPerKg":[12.5],"capMg":500}'><span class="np-pill-name">PO Cephalexin</span><div class="np-pill-dose-clip"><span class="np-pill-dose">12.5 mg/kg/dose QID (max 500 mg)</span></div></div>
             <div class="np-pill np-red"><span class="np-pill-name">IV Vancomycin</span><div class="np-pill-dose-clip"><span class="np-pill-dose">If systemically ill — pharmacy to dose</span></div></div>
-            <div class="np-pill np-gray"><span class="np-pill-name">PO Clindamycin</span><div class="np-pill-dose-clip"><span class="np-pill-dose">Type I PCN allergy: 10 mg/kg/dose TID (max 450 mg)</span></div></div>
+            <div class="np-pill np-gray" data-dose-calc='{"kind":"mgkg_per_dose","mgPerKg":[10],"capMg":450}'><span class="np-pill-name">PO Clindamycin</span><div class="np-pill-dose-clip"><span class="np-pill-dose">Type I PCN allergy: 10 mg/kg/dose TID (max 450 mg)</span></div></div>
           </div>
         </div>
       </div>
@@ -104,7 +105,7 @@
     </div>
   </div>
 
-  <div class="section-block p-section">
+  <div class="section-block p-section" id="section-purulent-furuncle-carbuncle-abscess">
     <div class="section-title">Purulent cellulitis (Furuncle/Carbuncle/Abscess)</div>
     <div class="grid">
 
@@ -170,8 +171,8 @@
           <div class="sec-label">Empirical Treatment <span>(pick one)</span></div>
           <p class="italic-note" style="margin-top:0;">Both cover MRSA orally.</p>
           <div class="np-pill-group">
-            <div class="np-pill np-amber"><span class="np-pill-name">PO TMP-SMX</span><div class="np-pill-dose-clip"><span class="np-pill-dose">6 mg/kg/dose BID (max 320 mg TMP)</span></div></div>
-            <div class="np-pill np-amber"><span class="np-pill-name">PO Doxycycline</span><div class="np-pill-dose-clip"><span class="np-pill-dose">2.2 mg/kg/dose BID (max 100 mg)</span></div></div>
+            <div class="np-pill np-amber" data-dose-calc='{"kind":"mgkg_per_dose","mgPerKg":[6],"capMg":320,"labelSuffix":"TMP"}'><span class="np-pill-name">PO TMP-SMX</span><div class="np-pill-dose-clip"><span class="np-pill-dose">6 mg/kg/dose BID (max 320 mg TMP)</span></div></div>
+            <div class="np-pill np-amber" data-dose-calc='{"kind":"mgkg_per_dose","mgPerKg":[2.2],"capMg":100}'><span class="np-pill-name">PO Doxycycline</span><div class="np-pill-dose-clip"><span class="np-pill-dose">2.2 mg/kg/dose BID (max 100 mg)</span></div></div>
           </div>
         </div>
         <div class="divider"></div>
@@ -179,8 +180,8 @@
           <div class="sec-label">Lab result <span>(MRSA or MSSA)</span></div>
           <p class="italic-note" style="margin-top:0;">Same oral options:</p>
           <div class="np-pill-group">
-            <div class="np-pill np-amber"><span class="np-pill-name">PO TMP-SMX</span><div class="np-pill-dose-clip"><span class="np-pill-dose">6 mg/kg/dose BID (max 320 mg TMP)</span></div></div>
-            <div class="np-pill np-amber"><span class="np-pill-name">PO Doxycycline</span><div class="np-pill-dose-clip"><span class="np-pill-dose">2.2 mg/kg/dose BID (max 100 mg)</span></div></div>
+            <div class="np-pill np-amber" data-dose-calc='{"kind":"mgkg_per_dose","mgPerKg":[6],"capMg":320,"labelSuffix":"TMP"}'><span class="np-pill-name">PO TMP-SMX</span><div class="np-pill-dose-clip"><span class="np-pill-dose">6 mg/kg/dose BID (max 320 mg TMP)</span></div></div>
+            <div class="np-pill np-amber" data-dose-calc='{"kind":"mgkg_per_dose","mgPerKg":[2.2],"capMg":100}'><span class="np-pill-name">PO Doxycycline</span><div class="np-pill-dose-clip"><span class="np-pill-dose">2.2 mg/kg/dose BID (max 100 mg)</span></div></div>
           </div>
           <p class="italic-note" style="margin-top:4px;">Then discharge.</p>
         </div>
@@ -234,7 +235,7 @@
               <svg width="14" height="10" viewBox="0 0 14 10" fill="none" style="flex-shrink:0; margin-top:3px;"><line x1="0" y1="5" x2="10" y2="5" stroke="#B4B2A9" stroke-width="1.5" stroke-linecap="round"/><polyline points="6,1 10,5 6,9" stroke="#B4B2A9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
               <div class="np-pill-group" style="display:inline-flex; flex:1; min-width:0; align-items:flex-start;">
                 <div class="np-pill np-blue"><span class="np-pill-name">IV Nafcillin</span><div class="np-pill-dose-clip"><span class="np-pill-dose">200 mg/kg/day divided Q4h (max 12 g/day)</span></div></div>
-                <div class="np-pill np-blue"><span class="np-pill-name">IV Cefazolin</span><div class="np-pill-dose-clip"><span class="np-pill-dose">33 mg/kg/dose Q8h (max 2 g)</span></div></div>
+                <div class="np-pill np-blue" data-dose-calc='{"kind":"mgkg_per_dose","mgPerKg":[33],"capG":2}'><span class="np-pill-name">IV Cefazolin</span><div class="np-pill-dose-clip"><span class="np-pill-dose">33 mg/kg/dose Q8h (max 2 g)</span></div></div>
               </div>
             </div>
             <div class="org-row">
@@ -252,26 +253,30 @@
             <span class="sec-label">Step-down oral <span>(after IV)</span></span>
             <p class="italic-note card-disclosure__preview">PO options by MRSA, MSSA, or GAS.</p>
           </summary>
+          <!-- Same org-row + pill pattern as Definitive IV above (no step-card boxes) -->
           <div class="card-disclosure__body">
-            <div class="step-card">
-              <div class="step-org step-mrsa">MRSA</div>
-              <div class="np-pill-group" style="margin-top:2px;">
-                <div class="np-pill np-red"><span class="np-pill-name">PO TMP-SMX</span><div class="np-pill-dose-clip"><span class="np-pill-dose">6 mg/kg/dose BID (max 320 mg TMP)</span></div></div>
-                <div class="np-pill np-red"><span class="np-pill-name">PO Doxycycline</span><div class="np-pill-dose-clip"><span class="np-pill-dose">2.2 mg/kg/dose BID (max 100 mg)</span></div></div>
+            <div class="org-row">
+              <span class="pill p-red" style="margin:0;">MRSA</span>
+              <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><line x1="0" y1="5" x2="10" y2="5" stroke="#B4B2A9" stroke-width="1.5" stroke-linecap="round"/><polyline points="6,1 10,5 6,9" stroke="#B4B2A9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div class="np-pill-group" style="display:inline-flex; flex:1; min-width:0;">
+                <div class="np-pill np-red" data-dose-calc='{"kind":"mgkg_per_dose","mgPerKg":[6],"capMg":320,"labelSuffix":"TMP"}'><span class="np-pill-name">PO TMP-SMX</span><div class="np-pill-dose-clip"><span class="np-pill-dose">6 mg/kg/dose BID (max 320 mg TMP)</span></div></div>
+                <div class="np-pill np-red" data-dose-calc='{"kind":"mgkg_per_dose","mgPerKg":[2.2],"capMg":100}'><span class="np-pill-name">PO Doxycycline</span><div class="np-pill-dose-clip"><span class="np-pill-dose">2.2 mg/kg/dose BID (max 100 mg)</span></div></div>
               </div>
             </div>
-            <div class="step-card">
-              <div class="step-org step-mssa">MSSA</div>
-              <div class="np-pill-group" style="margin-top:2px;">
-                <div class="np-pill np-blue"><span class="np-pill-name">PO Cefadroxil</span><div class="np-pill-dose-clip"><span class="np-pill-dose">15 mg/kg/dose BID (max 500 mg)</span></div></div>
-                <div class="np-pill np-blue"><span class="np-pill-name">PO Cephalexin</span><div class="np-pill-dose-clip"><span class="np-pill-dose">25 mg/kg/dose QID (max 1000 mg)</span></div></div>
+            <div class="org-row" style="align-items:flex-start;">
+              <span class="pill p-blue" style="margin:0;flex-shrink:0;">MSSA</span>
+              <svg width="14" height="10" viewBox="0 0 14 10" fill="none" style="flex-shrink:0; margin-top:3px;"><line x1="0" y1="5" x2="10" y2="5" stroke="#B4B2A9" stroke-width="1.5" stroke-linecap="round"/><polyline points="6,1 10,5 6,9" stroke="#B4B2A9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div class="np-pill-group" style="display:inline-flex; flex:1; min-width:0; align-items:flex-start;">
+                <div class="np-pill np-blue" data-dose-calc='{"kind":"mgkg_per_dose","mgPerKg":[15],"capMg":500}'><span class="np-pill-name">PO Cefadroxil</span><div class="np-pill-dose-clip"><span class="np-pill-dose">15 mg/kg/dose BID (max 500 mg)</span></div></div>
+                <div class="np-pill np-blue" data-dose-calc='{"kind":"mgkg_per_dose","mgPerKg":[25],"capMg":1000}'><span class="np-pill-name">PO Cephalexin</span><div class="np-pill-dose-clip"><span class="np-pill-dose">25 mg/kg/dose QID (max 1000 mg)</span></div></div>
               </div>
             </div>
-            <div class="step-card">
-              <div class="step-org step-gas">GAS</div>
-              <div class="np-pill-group" style="margin-top:2px;">
-                <div class="np-pill np-teal"><span class="np-pill-name">PO Penicillin VK</span><div class="np-pill-dose-clip"><span class="np-pill-dose">15&ndash;20 mg/kg/dose QID (max 500 mg)</span></div></div>
-                <div class="np-pill np-teal"><span class="np-pill-name">PO Cefadroxil</span><div class="np-pill-dose-clip"><span class="np-pill-dose">15 mg/kg/dose BID (max 500 mg)</span></div></div>
+            <div class="org-row">
+              <span class="pill p-gray" style="margin:0;">GAS</span>
+              <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><line x1="0" y1="5" x2="10" y2="5" stroke="#B4B2A9" stroke-width="1.5" stroke-linecap="round"/><polyline points="6,1 10,5 6,9" stroke="#B4B2A9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div class="np-pill-group" style="display:inline-flex; flex:1; min-width:0;">
+                <div class="np-pill np-teal" data-dose-calc='{"kind":"mgkg_per_dose","mgPerKg":[15,20],"capMg":500}'><span class="np-pill-name">PO Penicillin VK</span><div class="np-pill-dose-clip"><span class="np-pill-dose">15&ndash;20 mg/kg/dose QID (max 500 mg)</span></div></div>
+                <div class="np-pill np-teal" data-dose-calc='{"kind":"mgkg_per_dose","mgPerKg":[15],"capMg":500}'><span class="np-pill-name">PO Cefadroxil</span><div class="np-pill-dose-clip"><span class="np-pill-dose">15 mg/kg/dose BID (max 500 mg)</span></div></div>
               </div>
             </div>
           </div>

@@ -1,0 +1,8 @@
+{
+  "name": "pedsmarx-cheat-sheet",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "validate:dose-calc": "node scripts/validate-dose-calc.mjs"
+  }
+}

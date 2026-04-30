@@ -16,7 +16,8 @@
   bottom: 1rem;
   z-index: 10001;
   pointer-events: auto;
-  max-width: min(22rem, calc(100vw - 2rem));
+  /* Wider than FAB — panel labels show full pathway text (no ellipsis) */
+  max-width: calc(100vw - 2rem);
 }
 .sheet-jump-backdrop {
   position: fixed;
@@ -33,7 +34,7 @@
   right: 0;
   bottom: calc(100% + 6px);
   width: max-content;
-  max-width: min(22rem, calc(100vw - 2rem));
+  max-width: calc(100vw - 2rem);
   visibility: hidden;
   pointer-events: none;
 }
@@ -52,34 +53,51 @@
   gap: 6px;
   width: 100%;
 }
-/* Link styled as np-pill: allow wrap for long pathway titles */
+/* Jump label + screen-only hide toggle (see index initSheetJump) */
+.sheet-jump-pill-list .sheet-jump-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  width: 100%;
+  max-width: 100%;
+}
+/* Panel jump links: full titles — ellipsis only on FAB */
 .sheet-jump-pill {
   display: inline-flex;
   cursor: pointer;
   text-decoration: none;
-  white-space: normal;
   text-align: right;
   max-width: 100%;
   box-sizing: border-box;
   transition: opacity 0.2s ease, transform 0.22s ease, box-shadow 0.2s ease;
 }
-.sheet-jump:not(.is-open) .sheet-jump-pill {
+.sheet-jump:not(.is-open) .sheet-jump-pill,
+.sheet-jump:not(.is-open) .sheet-jump-vis {
   opacity: 0;
   transform: translateY(12px);
   pointer-events: none;
 }
-.sheet-jump.is-open .sheet-jump-pill {
+.sheet-jump.is-open .sheet-jump-pill,
+.sheet-jump.is-open .sheet-jump-vis {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
 }
-/* Stagger: nearest-to-FAB pill resolves first */
-.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(1) .sheet-jump-pill { transition-delay: 0.02s; }
-.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(2) .sheet-jump-pill { transition-delay: 0.05s; }
-.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(3) .sheet-jump-pill { transition-delay: 0.08s; }
-.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(4) .sheet-jump-pill { transition-delay: 0.11s; }
-.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(5) .sheet-jump-pill { transition-delay: 0.14s; }
-.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(6) .sheet-jump-pill { transition-delay: 0.17s; }
+/* Stagger: nearest-to-FAB row resolves first (pill + visibility control share delay) */
+.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(1) .sheet-jump-pill,
+.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(1) .sheet-jump-vis { transition-delay: 0.02s; }
+.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(2) .sheet-jump-pill,
+.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(2) .sheet-jump-vis { transition-delay: 0.05s; }
+.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(3) .sheet-jump-pill,
+.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(3) .sheet-jump-vis { transition-delay: 0.08s; }
+.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(4) .sheet-jump-pill,
+.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(4) .sheet-jump-vis { transition-delay: 0.11s; }
+.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(5) .sheet-jump-pill,
+.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(5) .sheet-jump-vis { transition-delay: 0.14s; }
+.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(6) .sheet-jump-pill,
+.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(6) .sheet-jump-vis { transition-delay: 0.17s; }
 .sheet-jump-pill:hover {
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
 }
@@ -87,25 +105,86 @@
   outline: 2px solid #5DCAA5;
   outline-offset: 3px;
 }
-/* FAB: scroll-spy shows current pathway; fixed width ≈ original “Sections”, ellipsis overflows (full string in title/aria-label) */
-.sheet-jump-fab.np-pill {
-  display: inline-block;
+/* Compact icon pill to the right of each jump link — opacity/transform follow .sheet-jump open/close */
+.sheet-jump-vis.np-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.35rem;
+  min-width: 2.35rem;
   flex-shrink: 0;
+  padding: 0.38rem;
   cursor: pointer;
-  flex-direction: unset;
-  align-items: unset;
-  width: 10.5rem;
-  max-width: 10.5rem;
-  min-width: 0;
+  border-radius: 999px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  transition: opacity 0.2s ease, transform 0.22s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.sheet-jump-vis:hover {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+.sheet-jump-vis:focus-visible {
+  outline: 2px solid #5DCAA5;
+  outline-offset: 3px;
+}
+.sheet-jump-vis-icon {
+  display: block;
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  pointer-events: none;
+}
+/* Greyed jump when pathway is screen-hidden (see .sheet-section-screen-hidden in index) */
+.sheet-jump-pill.sheet-jump-pill--disabled {
+  opacity: 0.42;
+  filter: grayscale(0.9);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+@media screen {
+  /* Suppress on screen only — print omits this rule so full clinical content still prints */
+  .sheet-section-screen-hidden {
+    display: none !important;
+  }
+}
+/*
+ * Stadium chrome shared by FAB + panel; only FAB truncates with ellipsis.
+ * Base .np-pill is 4px radius — overrides here.
+ */
+.sheet-jump-fab.np-pill,
+.sheet-jump-pill.np-pill {
   padding: 0.45rem 0.95rem;
   letter-spacing: 0.04em;
   border-radius: 999px;
+  box-sizing: border-box;
+  text-align: right;
+  flex-direction: unset;
+  align-items: unset;
+  vertical-align: middle;
+}
+/* Open panel: full pathway string visible (wrap if narrow viewport — never ellipsis) */
+.sheet-jump-pill.np-pill {
+  display: inline-block;
+  width: max-content;
+  max-width: min(100%, calc(100vw - 2rem - 2.35rem - 12px));
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  flex-shrink: 1;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  transition: opacity 0.2s ease, transform 0.22s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+/* Collapsed control: fixed width + ellipsis for scroll-spy label */
+.sheet-jump-fab.np-pill {
+  display: inline-block;
+  width: 10.5rem;
+  max-width: 10.5rem;
+  min-width: 0;
+  flex-shrink: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  text-align: right;
-  box-sizing: border-box;
-  vertical-align: middle;
+  cursor: pointer;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   transition: box-shadow 0.2s ease, border-color 0.2s ease;
 }

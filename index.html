@@ -37,12 +37,42 @@
   <div class="sheet-jump-anchor">
     <nav class="sheet-jump-stack" id="sheet-jump-panel" aria-label="Jump to section" aria-hidden="true">
       <ul class="sheet-jump-pill-list">
-        <li><a class="sheet-jump-pill np-pill np-gray" href="#section-purulent-impetigo-ecthyma-folliculitis" tabindex="-1">Purulent — Impetigo / ecthyma / folliculitis</a></li>
-        <li><a class="sheet-jump-pill np-pill np-gray" href="#section-purulent-furuncle-carbuncle-abscess" tabindex="-1">Purulent — Furuncle / carbuncle / abscess</a></li>
-        <li><a class="sheet-jump-pill np-pill np-gray" href="#section-non-purulent-cellulitis" tabindex="-1">Non-purulent cellulitis</a></li>
-        <li><a class="sheet-jump-pill np-pill np-gray" href="#ntm-section-title" tabindex="-1">Necrotizing and toxin-mediated cellulitis</a></li>
-        <li><a class="sheet-jump-pill np-pill np-gray" href="#section-preseptal-orbital-cellulitis" tabindex="-1">Preseptal / orbital cellulitis</a></li>
-        <li><a class="sheet-jump-pill np-pill np-gray" href="#section-bites-pyomyositis" tabindex="-1">Bites and pyomyositis</a></li>
+        <li class="sheet-jump-row">
+          <a class="sheet-jump-pill np-pill np-gray" href="#section-purulent-impetigo-ecthyma-folliculitis" tabindex="-1">Purulent — Impetigo / ecthyma / folliculitis</a>
+          <button type="button" class="sheet-jump-vis np-pill np-gray" data-jump-id="section-purulent-impetigo-ecthyma-folliculitis" aria-pressed="false">
+            <img class="sheet-jump-vis-icon" src="./logos/unhide.png" alt="" width="18" height="18" />
+          </button>
+        </li>
+        <li class="sheet-jump-row">
+          <a class="sheet-jump-pill np-pill np-gray" href="#section-purulent-furuncle-carbuncle-abscess" tabindex="-1">Purulent — Furuncle / carbuncle / abscess</a>
+          <button type="button" class="sheet-jump-vis np-pill np-gray" data-jump-id="section-purulent-furuncle-carbuncle-abscess" aria-pressed="false">
+            <img class="sheet-jump-vis-icon" src="./logos/unhide.png" alt="" width="18" height="18" />
+          </button>
+        </li>
+        <li class="sheet-jump-row">
+          <a class="sheet-jump-pill np-pill np-gray" href="#section-non-purulent-cellulitis" tabindex="-1">Non-purulent cellulitis</a>
+          <button type="button" class="sheet-jump-vis np-pill np-gray" data-jump-id="section-non-purulent-cellulitis" aria-pressed="false">
+            <img class="sheet-jump-vis-icon" src="./logos/unhide.png" alt="" width="18" height="18" />
+          </button>
+        </li>
+        <li class="sheet-jump-row">
+          <a class="sheet-jump-pill np-pill np-gray" href="#ntm-section-title" tabindex="-1">Necrotizing and toxin-mediated cellulitis</a>
+          <button type="button" class="sheet-jump-vis np-pill np-gray" data-jump-id="ntm-section-title" aria-pressed="false">
+            <img class="sheet-jump-vis-icon" src="./logos/unhide.png" alt="" width="18" height="18" />
+          </button>
+        </li>
+        <li class="sheet-jump-row">
+          <a class="sheet-jump-pill np-pill np-gray" href="#section-preseptal-orbital-cellulitis" tabindex="-1">Preseptal / orbital cellulitis</a>
+          <button type="button" class="sheet-jump-vis np-pill np-gray" data-jump-id="section-preseptal-orbital-cellulitis" aria-pressed="false">
+            <img class="sheet-jump-vis-icon" src="./logos/unhide.png" alt="" width="18" height="18" />
+          </button>
+        </li>
+        <li class="sheet-jump-row">
+          <a class="sheet-jump-pill np-pill np-gray" href="#section-bites-pyomyositis" tabindex="-1">Bites and pyomyositis</a>
+          <button type="button" class="sheet-jump-vis np-pill np-gray" data-jump-id="section-bites-pyomyositis" aria-pressed="false">
+            <img class="sheet-jump-vis-icon" src="./logos/unhide.png" alt="" width="18" height="18" />
+          </button>
+        </li>
       </ul>
     </nav>
     <button type="button" class="sheet-jump-fab np-pill np-gray" id="sheet-jump-toggle" aria-expanded="false" aria-controls="sheet-jump-panel">
@@ -196,6 +226,19 @@
   /* Assigned in initSheetJump so fetch/hash/fonts can refresh FAB after layout */
   var scheduleSheetJumpSpy = function() {};
 
+  /* FAB hash target may sit on .section-title-row; whole pathway = closest .section-block (see partials) */
+  var SECTION_SCREEN_HIDDEN = 'sheet-section-screen-hidden';
+
+  function sectionBlockForJumpId(id) {
+    var el = document.getElementById(id);
+    return el ? el.closest('.section-block') : null;
+  }
+
+  function isJumpSectionScreenHidden(id) {
+    var blk = sectionBlockForJumpId(id);
+    return !!(blk && blk.classList.contains(SECTION_SCREEN_HIDDEN));
+  }
+
   /* Bottom-right FAB: which section is “current” follows scroll (rAF-scheduled spy) */
   function initSheetJump() {
     var root = document.querySelector('.sheet-jump');
@@ -218,9 +261,30 @@
 
     var lastSpyId = null;
     var spyRafId = null;
+    /* Sentinel when every pathway is screen-hidden — FAB shows generic “Sections” */
+    var SPY_EMPTY = '__spy_empty';
+
+    function syncJumpRowUi(jumpId) {
+      var pill = panel.querySelector('a.sheet-jump-pill[href="#' + jumpId + '"]');
+      var btn = panel.querySelector('button.sheet-jump-vis[data-jump-id="' + jumpId + '"]');
+      var img = btn ? btn.querySelector('.sheet-jump-vis-icon') : null;
+      if (!pill || !btn || !img) return;
+      var label = spyLabelById[jumpId] || (pill.textContent || '').trim();
+      var hidden = isJumpSectionScreenHidden(jumpId);
+      pill.classList.toggle('sheet-jump-pill--disabled', hidden);
+      pill.setAttribute('aria-disabled', hidden ? 'true' : 'false');
+      if (hidden) pill.classList.remove('sheet-jump-pill--active');
+      btn.setAttribute('aria-pressed', hidden ? 'true' : 'false');
+      btn.setAttribute('aria-label', hidden ? 'Show section: ' + label : 'Hide section: ' + label);
+      img.src = hidden ? './logos/hide.png' : './logos/unhide.png';
+    }
 
     function getActiveSectionId() {
-      if (!spyIds.length) return null;
+      var visibleCount = spyIds.reduce(function(n, jid) {
+        return n + (isJumpSectionScreenHidden(jid) ? 0 : 1);
+      }, 0);
+      if (!visibleCount || !spyIds.length) return null;
+
       var docEl = document.documentElement;
       var scrollH = docEl.scrollHeight;
       var innerH = window.innerHeight;
@@ -228,16 +292,27 @@
       var nearBottom = scrollY + innerH >= scrollH - 4;
       if (nearBottom) {
         for (var j = spyIds.length - 1; j >= 0; j--) {
-          if (document.getElementById(spyIds[j])) return spyIds[j];
+          var jid = spyIds[j];
+          if (!isJumpSectionScreenHidden(jid) && document.getElementById(jid)) return jid;
         }
       }
-      /* Last section whose top edge is at/above this band (pairs with scroll-margin-top on anchors) */
+      /* Last visible section whose top edge is at/above this band (pairs with scroll-margin-top on anchors) */
       var line = Math.max(64, window.innerHeight * 0.12);
-      var active = spyIds[0];
+      var firstVis = null;
+      for (var f = 0; f < spyIds.length; f++) {
+        if (!isJumpSectionScreenHidden(spyIds[f])) {
+          firstVis = spyIds[f];
+          break;
+        }
+      }
+      if (!firstVis) return null;
+      var active = firstVis;
       for (var i = 0; i < spyIds.length; i++) {
-        var sec = document.getElementById(spyIds[i]);
+        var jid = spyIds[i];
+        if (isJumpSectionScreenHidden(jid)) continue;
+        var sec = document.getElementById(jid);
         if (!sec) continue;
-        if (sec.getBoundingClientRect().top <= line) active = spyIds[i];
+        if (sec.getBoundingClientRect().top <= line) active = jid;
       }
       return active;
     }
@@ -248,7 +323,19 @@
       if (!firstEl) return;
 
       var id = getActiveSectionId();
-      if (!id) return;
+      if (!id) {
+        if (lastSpyId !== SPY_EMPTY) {
+          lastSpyId = SPY_EMPTY;
+          fab.textContent = 'Sections';
+          fab.title = '';
+          fab.setAttribute('aria-label', 'Jump to section');
+          pills.forEach(function(p) {
+            p.classList.remove('sheet-jump-pill--active');
+          });
+        }
+        return;
+      }
+
       if (id === lastSpyId) return;
       lastSpyId = id;
 
@@ -287,10 +374,34 @@
       setOpen(false);
     });
 
+    panel.addEventListener('click', function(e) {
+      var visBtn = e.target.closest('button.sheet-jump-vis');
+      if (visBtn) {
+        e.stopPropagation();
+        var jid = visBtn.getAttribute('data-jump-id');
+        if (!jid) return;
+        var blk = sectionBlockForJumpId(jid);
+        if (!blk) return;
+        blk.classList.toggle(SECTION_SCREEN_HIDDEN);
+        syncJumpRowUi(jid);
+        scheduleSpy();
+        return;
+      }
+    });
+
     pills.forEach(function(a) {
-      a.addEventListener('click', function() {
+      a.addEventListener('click', function(e) {
+        if (a.classList.contains('sheet-jump-pill--disabled')) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          return;
+        }
         setOpen(false);
       });
+    });
+
+    spyIds.forEach(function(jid) {
+      syncJumpRowUi(jid);
     });
 
     window.addEventListener('scroll', scheduleSpy, { passive: true });

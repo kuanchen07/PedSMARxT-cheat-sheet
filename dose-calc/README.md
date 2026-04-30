@@ -10,6 +10,8 @@ This folder holds the weight-based **mg/kg** helper that appears on `[data-dose-
 
 Orchestration: [`index.html`](../index.html) loads [`initNpPills`](../index.html) (pill label toggles) then dynamically imports `./np-pill.js` and calls `initDoseCalcPills()`.
 
+Validation: from repo root, **`npm run validate:dose-calc`** scans HTML partials and ensures each `data-dose-calc` attribute parses and satisfies `compute.js` (same checks CI uses).
+
 ## Spec shape (`data-dose-calc` on `.np-pill`)
 
 Per-dose regimens:

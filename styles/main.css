@@ -154,7 +154,7 @@
 .p-yellow { background: #FEFCE8; color: #5A4A08; border: 1px solid #CA9A06; }
 .p-orange { background: #FFEDD5; color: #7C2D12; border: 1px solid #E85D1A; }
 .italic-note { font-size: 11px; color: #888780; font-style: italic; margin-top: 4px; line-height: 1.5; }
-/* .table-jump-* + .sheet-anchor — styles/diseases.css (non-purulent + undefined) */
+/* .table-jump-* + .sheet-anchor — styles/diseases.css (non-purulent + bites-pyomyositis) */
 .org-row { display: flex; align-items: center; gap: 7px; margin-bottom: 5px; }
 .org-row:last-child { margin-bottom: 0; }
 /* Dropped unused .org-drug / .step-drugs; org rows use .pill / .np-pill (.step-card retired with purulent step-down markup) */

@@ -1,6 +1,7 @@
 /**
  * Pure dosing math for weight-based pediatric estimates (mg/kg × kg, capped).
  * No DOM — safe to edit in isolation.
+ * Repo guard: `npm run validate:dose-calc` checks every `data-dose-calc` attribute parses and satisfies computePerDose().
  */
 
 /**

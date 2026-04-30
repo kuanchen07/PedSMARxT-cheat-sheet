@@ -1,10 +1,10 @@
 /*
  * Disease partial overrides — complements styles/main.css.
- * Mirrors diseases/<folder>/section.html: purulent, non-purulent, necrotizing/toxin, preseptal/orbital, undefined (bites/pyomyositis).
+ * Mirrors diseases/<folder>/section.html: purulent, non-purulent, necrotizing/toxin, preseptal/orbital, bites-pyomyositis.
  */
 
 /* --- Purulent (furuncle / impetigo) --- */
-/* Impetigo block: paired min-height band with PO/NTM/undefined for column alignment when titles scale */
+/* Impetigo block: paired min-height band with PO/NTM/bites column alignment when titles scale */
 .p-section:first-of-type .card-head {
   min-height: 4rem;
   padding: 2px 14px;
@@ -76,7 +76,7 @@
   88%, 100% { outline: 0 solid transparent; outline-offset: 0; }
 }
 .ntm-section .card.sev.ntm-anchor-flash,
-.undefined-section .card.sev.ntm-anchor-flash {
+.bites-pyomyositis-section .card.sev.ntm-anchor-flash {
   position: relative;
   z-index: 2;
   animation: ntm-anchor-flash 3s ease-in-out forwards;
@@ -104,7 +104,7 @@
   .ntm-section .grid.ntm-dual-grid { grid-template-columns: 1fr; }
 }
 
-/* --- Preseptal / orbital (mount also receives bites/undefined fragment) --- */
+/* --- Preseptal / orbital (mount also receives bites-pyomyositis fragment) --- */
 #disease-preseptal-orbital { margin-top: 2rem; }
 
 .po-section .section-title { margin-bottom: 1.25rem; }
@@ -120,20 +120,20 @@
   justify-content: center;
 }
 
-/* --- Bites & pyomyositis (diseases/undefined; injected after preseptal into #disease-preseptal-orbital) --- */
-.undefined-section .section-title { margin-bottom: 1.25rem; }
-.undefined-section .card { overflow: visible; }
+/* --- Bites & pyomyositis (diseases/bites-pyomyositis; injected after preseptal into #disease-preseptal-orbital) --- */
+.bites-pyomyositis-section .section-title { margin-bottom: 1.25rem; }
+.bites-pyomyositis-section .card { overflow: visible; }
 
-.undefined-section .grid.undefined-dual-grid {
+.bites-pyomyositis-section .grid.bites-pyomyositis-dual-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
   align-items: start;
 }
 @media (max-width: 900px) {
-  .undefined-section .grid.undefined-dual-grid { grid-template-columns: 1fr; }
+  .bites-pyomyositis-section .grid.bites-pyomyositis-dual-grid { grid-template-columns: 1fr; }
 }
 
-.undefined-section .card-head {
+.bites-pyomyositis-section .card-head {
   min-height: 4rem;
   padding: 2px 14px;
   display: flex;
@@ -142,17 +142,17 @@
 }
 
 /* In-sheet jump to NTM — match non-purulent .sheet-anchor styling */
-.undefined-section a.sheet-anchor {
+.bites-pyomyositis-section a.sheet-anchor {
   color: #0033a0;
   font-weight: 500;
   text-decoration: underline;
   text-decoration-color: rgba(0, 51, 160, 0.35);
   text-underline-offset: 2px;
 }
-.undefined-section a.sheet-anchor:hover {
+.bites-pyomyositis-section a.sheet-anchor:hover {
   text-decoration-color: #0033a0;
 }
 
 @media print {
-  .undefined-section .grid.undefined-dual-grid { grid-template-columns: 1fr; }
+  .bites-pyomyositis-section .grid.bites-pyomyositis-dual-grid { grid-template-columns: 1fr; }
 }

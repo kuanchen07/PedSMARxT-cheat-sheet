@@ -4,6 +4,10 @@
 
 A single-file **PedSMARxT** quick reference for **pediatric skin and soft tissue infection (SSTI)** care: procedures (I&D, cultures), empirical and definitive therapy, and pediatric dosing in one printable-style layout.
 
+## Checks
+
+`npm run validate:dose-calc` scans `index.html` and `diseases/**/*.html` for `data-dose-calc` attributes and verifies each parses as JSON and satisfies [`dose-calc/compute.js`](dose-calc/compute.js) (same rules the live calculator uses). GitHub Actions runs this on pushes and pull requests to `main`.
+
 ## Contents
 
 This list tracks what the sheet covers; **content is updated often** as the cheat sheet changes.

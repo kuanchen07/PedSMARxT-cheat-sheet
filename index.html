@@ -14,7 +14,7 @@
 
 <div class="outer">
   <div class="header">
-    <span class="rx-badge"><img src="logos\PedSMARxT-logo.png" alt="PedSMARxT" /></span>
+    <span class="rx-badge"><img src="./logos/PedSMARxT-logo.png" alt="PedSMARxT" /></span>
     <span class="header-title">cheat sheet</span>
     <!-- Former .header-sub (Pediatric Antibiotic Edition) slot — partner wordmark, far right -->
     <span class="header-affiliate-logo"><img src="./logos/chrome-lab-icon.png" alt="CHRoME LAB" /></span>
@@ -132,6 +132,7 @@
     }
   }
 
+  /* Therapy pills: expects .np-pill-group > .np-pill > .np-pill-name; data-dose-calc bound later via dose-calc/np-pill.js */
   function initNpPills() {
     document.querySelectorAll('.np-pill-group').forEach(function(group) {
       group.querySelectorAll('.np-pill').forEach(function(pill) {
@@ -414,13 +415,19 @@
     requestAnimationFrame(scheduleSheetJumpSpy);
   });
 
+  /*
+   * Disease partial bootstrap — contracts (keep in sync with .cursor/skills/pedsmarx-disease-partials/SKILL.md):
+   * - Promise.all order fixes htmls[] indices; changing order requires updating every responses[i].ok, .text(), and assignments below.
+   * - htmls[3]+htmls[4] both mount into #disease-preseptal-orbital (preseptal/orbital then bites/pyomyositis).
+   * - After innerHTML: initNpPills → initCardDisclosurePrint → initSevNameFitListeners → hash/spy → fonts → dynamic import dose-calc → initDoseCalcPills (do not reorder without checking partial DOM).
+   */
   // Fetch requires http(s) or a local static server; file:// often fails.
   Promise.all([
     fetch('./diseases/purulent-cellulitis/section.html'),
     fetch('./diseases/non-purulent-cellulitis/section.html'),
     fetch('./diseases/necrotizing-toxin-mediated-cellulitis/section.html'),
     fetch('./diseases/preseptal-orbital-cellulitis/section.html'),
-    fetch('./diseases/undefined/section.html')
+    fetch('./diseases/bites-pyomyositis/section.html')
   ]).then(function(responses) {
     if (!responses[0].ok || !responses[1].ok || !responses[2].ok || !responses[3].ok || !responses[4].ok) {
       throw new Error('Failed to load disease sections: ' + responses[0].status + ' / ' + responses[1].status + ' / ' + responses[2].status + ' / ' + responses[3].status + ' / ' + responses[4].status);
@@ -434,7 +441,7 @@
     pur.innerHTML = htmls[0];
     np.innerHTML = htmls[1];
     ntm.innerHTML = htmls[2];
-    /* Preseptal/orbital partial + bites/pyomyositis (`diseases/undefined`) share one mount so spacing uses .section-block + .section-block */
+    /* Preseptal/orbital + bites/pyomyositis share #disease-preseptal-orbital so adjacent .section-block spacing stays correct */
     po.innerHTML = htmls[3] + htmls[4];
     initNpPills();
     initCardDisclosurePrint();

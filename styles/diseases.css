@@ -197,6 +197,9 @@
   justify-content: center;
 }
 
+.cap-pleural-section .section-title-row,
+.cap-failure-section .section-title-row { margin-bottom: 1rem; }
+
 /* Full-width specialty cards — card-head label/title like NTM Pattern rows; default card border */
 .cap-wide-card {
   overflow: visible;
@@ -224,6 +227,7 @@
 
 .cap-panel-grid {
   display: grid;
+  width: 100%;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1rem;
   align-items: start;

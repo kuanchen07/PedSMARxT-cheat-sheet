@@ -194,6 +194,13 @@
   transition: box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
+.sheet-jump-pill.sheet-jump-pill--review {
+  color: #a32d2d;
+  border-color: #f09595;
+}
+.sheet-jump-pill.sheet-jump-pill--review:hover {
+  border-color: #e24b4a;
+}
 .sheet-jump-pill.sheet-jump-pill--active {
   border-color: #5DCAA5;
 }

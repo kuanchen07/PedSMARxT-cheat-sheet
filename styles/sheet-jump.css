@@ -53,6 +53,10 @@
   gap: 6px;
   width: 100%;
 }
+/* Inactive module list — explicit rule so flex display does not override [hidden] (see syncFabForModule) */
+.sheet-jump-pill-list[hidden] {
+  display: none !important;
+}
 /* Jump label + screen-only hide toggle (see index initSheetJump) */
 .sheet-jump-pill-list .sheet-jump-row {
   display: flex;
@@ -73,31 +77,32 @@
   box-sizing: border-box;
   transition: opacity 0.2s ease, transform 0.22s ease, box-shadow 0.2s ease;
 }
-.sheet-jump:not(.is-open) .sheet-jump-pill,
-.sheet-jump:not(.is-open) .sheet-jump-vis {
+/* Open/close animation — active module list only (:not([hidden]) via syncFabForModule) */
+.sheet-jump:not(.is-open) .sheet-jump-pill-list:not([hidden]) .sheet-jump-pill,
+.sheet-jump:not(.is-open) .sheet-jump-pill-list:not([hidden]) .sheet-jump-vis {
   opacity: 0;
   transform: translateY(12px);
   pointer-events: none;
 }
-.sheet-jump.is-open .sheet-jump-pill,
-.sheet-jump.is-open .sheet-jump-vis {
+.sheet-jump.is-open .sheet-jump-pill-list:not([hidden]) .sheet-jump-pill,
+.sheet-jump.is-open .sheet-jump-pill-list:not([hidden]) .sheet-jump-vis {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
 }
 /* Stagger: nearest-to-FAB row resolves first (pill + visibility control share delay) */
-.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(1) .sheet-jump-pill,
-.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(1) .sheet-jump-vis { transition-delay: 0.02s; }
-.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(2) .sheet-jump-pill,
-.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(2) .sheet-jump-vis { transition-delay: 0.05s; }
-.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(3) .sheet-jump-pill,
-.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(3) .sheet-jump-vis { transition-delay: 0.08s; }
-.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(4) .sheet-jump-pill,
-.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(4) .sheet-jump-vis { transition-delay: 0.11s; }
-.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(5) .sheet-jump-pill,
-.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(5) .sheet-jump-vis { transition-delay: 0.14s; }
-.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(6) .sheet-jump-pill,
-.sheet-jump.is-open .sheet-jump-pill-list li:nth-child(6) .sheet-jump-vis { transition-delay: 0.17s; }
+.sheet-jump.is-open .sheet-jump-pill-list:not([hidden]) li:nth-child(1) .sheet-jump-pill,
+.sheet-jump.is-open .sheet-jump-pill-list:not([hidden]) li:nth-child(1) .sheet-jump-vis { transition-delay: 0.02s; }
+.sheet-jump.is-open .sheet-jump-pill-list:not([hidden]) li:nth-child(2) .sheet-jump-pill,
+.sheet-jump.is-open .sheet-jump-pill-list:not([hidden]) li:nth-child(2) .sheet-jump-vis { transition-delay: 0.05s; }
+.sheet-jump.is-open .sheet-jump-pill-list:not([hidden]) li:nth-child(3) .sheet-jump-pill,
+.sheet-jump.is-open .sheet-jump-pill-list:not([hidden]) li:nth-child(3) .sheet-jump-vis { transition-delay: 0.08s; }
+.sheet-jump.is-open .sheet-jump-pill-list:not([hidden]) li:nth-child(4) .sheet-jump-pill,
+.sheet-jump.is-open .sheet-jump-pill-list:not([hidden]) li:nth-child(4) .sheet-jump-vis { transition-delay: 0.11s; }
+.sheet-jump.is-open .sheet-jump-pill-list:not([hidden]) li:nth-child(5) .sheet-jump-pill,
+.sheet-jump.is-open .sheet-jump-pill-list:not([hidden]) li:nth-child(5) .sheet-jump-vis { transition-delay: 0.14s; }
+.sheet-jump.is-open .sheet-jump-pill-list:not([hidden]) li:nth-child(6) .sheet-jump-pill,
+.sheet-jump.is-open .sheet-jump-pill-list:not([hidden]) li:nth-child(6) .sheet-jump-vis { transition-delay: 0.17s; }
 .sheet-jump-pill:hover {
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
 }

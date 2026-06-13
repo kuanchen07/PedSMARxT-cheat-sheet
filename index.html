@@ -3,27 +3,61 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PedSMARxT — cheat sheet</title>
+  <title>PedSMARxT — Skin and Soft Tissue infection (SSTI) cheat sheet</title>
   <link rel="stylesheet" href="./styles/main.css" />
+  <link rel="stylesheet" href="./styles/sheet-modules.css" />
   <link rel="stylesheet" href="./styles/diseases.css" />
   <link rel="stylesheet" href="./styles/sheet-jump.css" />
   <link rel="stylesheet" href="./dose-calc/dose-calc.css" />
 </head>
 <body>
-<h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">PedSMARxT cheat sheet — purulent folliculitis and impetigo spectrum, furuncle/abscess cellulitis, non-purulent cellulitis, necrotizing and toxin-mediated cellulitis, preseptal/orbital cellulitis, human/cat/dog bites, and pyomyositis</h2>
+<h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">PedSMARxT cheat sheet — skin and soft tissue infections, community-acquired pneumonia</h2>
 
+<!-- Single .outer — module picker in header; SSTI | CAP bodies swap below — styles/sheet-modules.css -->
 <div class="outer">
   <div class="header">
     <span class="rx-badge"><img src="./logos/PedSMARxT-logo.png" alt="PedSMARxT" /></span>
-    <span class="header-title">cheat sheet</span>
+    <div class="header-title-block">
+      <div class="sheet-module-picker" id="sheet-module-picker">
+        <button type="button" class="sheet-module-picker__trigger" id="sheet-module-trigger" aria-haspopup="listbox" aria-expanded="false" aria-controls="sheet-module-menu">
+          <img class="sheet-module-picker__icon" src="./menu.png" alt="" width="14" height="14" aria-hidden="true" />
+          <span class="sheet-module-picker__label" id="sheet-module-label">Skin and Soft Tissue infection (SSTI)</span>
+        </button>
+        <ul class="sheet-module-picker__menu" id="sheet-module-menu" role="listbox" aria-label="Infection module" hidden>
+          <li role="presentation">
+            <button type="button" class="sheet-module-picker__option is-selected" role="option" data-module="ssti" aria-selected="true">
+              <span class="sheet-module-picker__option-text">
+                <span class="sheet-module-picker__option-name">Skin and Soft Tissue infection</span>
+                <span class="sheet-module-picker__option-abbr">SSTI</span>
+              </span>
+            </button>
+          </li>
+          <li role="presentation">
+            <button type="button" class="sheet-module-picker__option" role="option" data-module="cap" aria-selected="false">
+              <span class="sheet-module-picker__option-text">
+                <span class="sheet-module-picker__option-name">Community-Acquired Pneumonia</span>
+                <span class="sheet-module-picker__option-abbr">CAP</span>
+              </span>
+            </button>
+          </li>
+        </ul>
+      </div>
+      <span class="header-title-suffix" aria-hidden="true">cheat sheet</span>
+    </div>
     <!-- Former .header-sub (Pediatric Antibiotic Edition) slot — partner wordmark, far right -->
     <span class="header-affiliate-logo"><img src="./logos/chrome-lab-icon.png" alt="CHRoME LAB" /></span>
   </div>
 
-  <div id="disease-purulent"></div>
-  <div id="disease-non-purulent"></div>
-  <div id="disease-necrotizing-toxin"></div>
-  <div id="disease-preseptal-orbital"></div>
+  <section id="module-ssti" class="sheet-module is-active" aria-label="Skin and Soft Tissue infection">
+    <div id="disease-purulent"></div>
+    <div id="disease-non-purulent"></div>
+    <div id="disease-necrotizing-toxin"></div>
+    <div id="disease-preseptal-orbital"></div>
+  </section>
+
+  <section id="module-cap" class="sheet-module" aria-label="Community-Acquired Pneumonia" hidden>
+    <div id="disease-cap"></div>
+  </section>
 
   <div class="footer">
     <span class="footer-tag">CHRoME LAB · KUAN CHEN</span>
@@ -36,7 +70,8 @@
   <div class="sheet-jump-backdrop" id="sheet-jump-backdrop" hidden aria-hidden="true"></div>
   <div class="sheet-jump-anchor">
     <nav class="sheet-jump-stack" id="sheet-jump-panel" aria-label="Jump to section" aria-hidden="true">
-      <ul class="sheet-jump-pill-list">
+      <!-- SSTI jump list — toggled with CAP list via syncFabForModule -->
+      <ul class="sheet-jump-pill-list" id="sheet-jump-list-ssti" data-sheet-module="ssti">
         <li class="sheet-jump-row">
           <a class="sheet-jump-pill np-pill np-gray" href="#section-purulent-impetigo-ecthyma-folliculitis" tabindex="-1">Purulent — Impetigo / ecthyma / folliculitis</a>
           <button type="button" class="sheet-jump-vis np-pill np-gray" data-jump-id="section-purulent-impetigo-ecthyma-folliculitis" aria-pressed="false">
@@ -70,6 +105,32 @@
         <li class="sheet-jump-row">
           <a class="sheet-jump-pill np-pill np-gray" href="#section-bites-pyomyositis" tabindex="-1">Bites and pyomyositis</a>
           <button type="button" class="sheet-jump-vis np-pill np-gray" data-jump-id="section-bites-pyomyositis" aria-pressed="false">
+            <img class="sheet-jump-vis-icon" src="./logos/unhide.png" alt="" width="18" height="18" />
+          </button>
+        </li>
+      </ul>
+      <ul class="sheet-jump-pill-list" id="sheet-jump-list-cap" data-sheet-module="cap" hidden>
+        <li class="sheet-jump-row">
+          <a class="sheet-jump-pill np-pill np-gray" href="#section-cap-uncomplicated" tabindex="-1">Uncomplicated CAP</a>
+          <button type="button" class="sheet-jump-vis np-pill np-gray" data-jump-id="section-cap-uncomplicated" aria-pressed="false">
+            <img class="sheet-jump-vis-icon" src="./logos/unhide.png" alt="" width="18" height="18" />
+          </button>
+        </li>
+        <li class="sheet-jump-row">
+          <a class="sheet-jump-pill np-pill np-gray" href="#section-cap-necrotizing-toxin" tabindex="-1">Necrotizing and toxin-mediated CAP</a>
+          <button type="button" class="sheet-jump-vis np-pill np-gray" data-jump-id="section-cap-necrotizing-toxin" aria-pressed="false">
+            <img class="sheet-jump-vis-icon" src="./logos/unhide.png" alt="" width="18" height="18" />
+          </button>
+        </li>
+        <li class="sheet-jump-row">
+          <a class="sheet-jump-pill np-pill np-gray" href="#section-cap-pleural-effusion" tabindex="-1">CAP with pleural effusion / empyema</a>
+          <button type="button" class="sheet-jump-vis np-pill np-gray" data-jump-id="section-cap-pleural-effusion" aria-pressed="false">
+            <img class="sheet-jump-vis-icon" src="./logos/unhide.png" alt="" width="18" height="18" />
+          </button>
+        </li>
+        <li class="sheet-jump-row">
+          <a class="sheet-jump-pill np-pill np-gray" href="#section-cap-treatment-failure" tabindex="-1">Treatment failure</a>
+          <button type="button" class="sheet-jump-vis np-pill np-gray" data-jump-id="section-cap-treatment-failure" aria-pressed="false">
             <img class="sheet-jump-vis-icon" src="./logos/unhide.png" alt="" width="18" height="18" />
           </button>
         </li>
@@ -216,16 +277,159 @@
 
   initNtmAnchorFlash();
 
+  /* Top-level modules (SSTI | CAP) — header select + hash; FAB scroll spy uses active module jump list */
+  var MODULE_SSTI = 'ssti';
+  var MODULE_CAP = 'cap';
+  var activeModuleId = MODULE_SSTI;
+  var MODULE_PAGE_TITLES = {
+    ssti: 'PedSMARxT — Skin and Soft Tissue infection (SSTI) cheat sheet',
+    cap: 'PedSMARxT — Community-Acquired Pneumonia (CAP) cheat sheet'
+  };
+  var MODULE_LABELS = {
+    ssti: 'Skin and Soft Tissue infection (SSTI)',
+    cap: 'Community-Acquired Pneumonia (CAP)'
+  };
+
+  function isSstiModuleActive() {
+    return activeModuleId === MODULE_SSTI;
+  }
+
+  function moduleIdFromHash(hash) {
+    var id = (hash || '').replace(/^#/, '');
+    if (id === MODULE_CAP || id.indexOf('section-cap-') === 0) return MODULE_CAP;
+    return MODULE_SSTI;
+  }
+
+  function closeSheetJumpPanel() {
+    var root = document.querySelector('.sheet-jump');
+    var fab = document.getElementById('sheet-jump-toggle');
+    var panel = document.getElementById('sheet-jump-panel');
+    var backdrop = document.getElementById('sheet-jump-backdrop');
+    if (!root || !fab || !panel || !backdrop) return;
+    root.classList.remove('is-open');
+    fab.setAttribute('aria-expanded', 'false');
+    backdrop.hidden = true;
+    backdrop.setAttribute('aria-hidden', 'true');
+    panel.setAttribute('aria-hidden', 'true');
+  }
+
+  function syncFabForModule() {
+    var jump = document.querySelector('.sheet-jump');
+    var sstiList = document.getElementById('sheet-jump-list-ssti');
+    var capList = document.getElementById('sheet-jump-list-cap');
+    if (!jump) return;
+    var isSsti = isSstiModuleActive();
+    if (sstiList) sstiList.hidden = !isSsti;
+    if (capList) capList.hidden = isSsti;
+    closeSheetJumpPanel();
+    if (typeof rebuildJumpSpyState === 'function') rebuildJumpSpyState();
+  }
+
+  function setActiveModule(moduleId, opts) {
+    opts = opts || {};
+    activeModuleId = moduleId;
+    var ssti = document.getElementById('module-ssti');
+    var cap = document.getElementById('module-cap');
+    if (!ssti || !cap) return;
+
+    var isSsti = moduleId === MODULE_SSTI;
+    ssti.classList.toggle('is-active', isSsti);
+    cap.classList.toggle('is-active', !isSsti);
+    ssti.hidden = !isSsti;
+    cap.hidden = isSsti;
+
+    syncModulePickerUi(moduleId);
+    if (MODULE_PAGE_TITLES[moduleId]) document.title = MODULE_PAGE_TITLES[moduleId];
+
+    syncFabForModule();
+    if (!opts.skipSpy) scheduleSheetJumpSpy();
+  }
+
+  function applyModuleFromHash() {
+    setActiveModule(moduleIdFromHash(location.hash), { skipSpy: true });
+  }
+
+  function syncModulePickerUi(moduleId) {
+    var label = document.getElementById('sheet-module-label');
+    if (label && MODULE_LABELS[moduleId]) label.textContent = MODULE_LABELS[moduleId];
+    document.querySelectorAll('.sheet-module-picker__option[data-module]').forEach(function(btn) {
+      var mod = btn.getAttribute('data-module');
+      var selected = mod === moduleId;
+      btn.classList.toggle('is-selected', selected);
+      btn.setAttribute('aria-selected', selected ? 'true' : 'false');
+    });
+  }
+
+  function navigateToModule(mod) {
+    if (mod === MODULE_CAP) {
+      if (location.hash !== '#cap') location.hash = '#cap';
+      else setActiveModule(MODULE_CAP);
+      window.scrollTo(0, 0);
+    } else {
+      var hashId = (location.hash || '').replace(/^#/, '');
+      if (hashId === MODULE_CAP || hashId.indexOf('section-cap-') === 0) {
+        history.replaceState(null, '', location.pathname + location.search);
+      }
+      setActiveModule(MODULE_SSTI);
+      scrollSheetHashIntoView();
+    }
+  }
+
+  function initModuleNav() {
+    var picker = document.getElementById('sheet-module-picker');
+    var trigger = document.getElementById('sheet-module-trigger');
+    var menu = document.getElementById('sheet-module-menu');
+    if (!picker || !trigger || !menu) return;
+
+    function setMenuOpen(open) {
+      picker.classList.toggle('is-open', open);
+      trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      menu.hidden = !open;
+    }
+
+    trigger.addEventListener('click', function(e) {
+      e.stopPropagation();
+      setMenuOpen(menu.hidden);
+    });
+
+    menu.querySelectorAll('.sheet-module-picker__option[data-module]').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var mod = btn.getAttribute('data-module');
+        if (!mod || mod === activeModuleId) {
+          setMenuOpen(false);
+          return;
+        }
+        setMenuOpen(false);
+        navigateToModule(mod);
+      });
+    });
+
+    document.addEventListener('click', function() {
+      setMenuOpen(false);
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') setMenuOpen(false);
+    });
+
+    applyModuleFromHash();
+    syncFabForModule();
+  }
+
+  initModuleNav();
+
   /* After partials load, #hash targets exist — scroll for deep links and GitHub Pages */
   function scrollSheetHashIntoView() {
     var id = (location.hash || '').replace(/^#/, '');
-    if (!id) return;
+    if (!id || id === MODULE_CAP) return;
     var el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'auto', block: 'start' });
   }
 
   /* Assigned in initSheetJump so fetch/hash/fonts can refresh FAB after layout */
   var scheduleSheetJumpSpy = function() {};
+  var rebuildJumpSpyState = function() {};
 
   /* FAB hash target may sit on .section-title-row; whole pathway = closest .section-block (see partials) */
   var SECTION_SCREEN_HIDDEN = 'sheet-section-screen-hidden';
@@ -248,22 +452,37 @@
     var backdrop = document.getElementById('sheet-jump-backdrop');
     if (!root || !fab || !panel || !backdrop) return;
 
-    var pills = panel.querySelectorAll('a.sheet-jump-pill');
-    /* Document order = scroll order; labels from pills so copy stays in sync with href targets */
     var spyIds = [];
     var spyLabelById = {};
-    pills.forEach(function(a) {
-      var href = a.getAttribute('href') || '';
-      var id = href.replace(/^#/, '');
-      if (!id) return;
-      spyIds.push(id);
-      spyLabelById[id] = (a.textContent || '').trim();
-    });
-
     var lastSpyId = null;
     var spyRafId = null;
-    /* Sentinel when every pathway is screen-hidden — FAB shows generic “Sections” */
     var SPY_EMPTY = '__spy_empty';
+
+    function activeJumpList() {
+      return isSstiModuleActive()
+        ? document.getElementById('sheet-jump-list-ssti')
+        : document.getElementById('sheet-jump-list-cap');
+    }
+
+    function rebuildSpyFromActiveModule() {
+      var list = activeJumpList();
+      spyIds = [];
+      spyLabelById = {};
+      lastSpyId = null;
+      if (!list) return;
+      list.querySelectorAll('a.sheet-jump-pill').forEach(function(a) {
+        var href = a.getAttribute('href') || '';
+        var id = href.replace(/^#/, '');
+        if (!id) return;
+        spyIds.push(id);
+        spyLabelById[id] = (a.textContent || '').trim();
+      });
+      spyIds.forEach(function(jid) {
+        syncJumpRowUi(jid);
+      });
+      updateSheetJumpSpy();
+    }
+    rebuildJumpSpyState = rebuildSpyFromActiveModule;
 
     function syncJumpRowUi(jumpId) {
       var pill = panel.querySelector('a.sheet-jump-pill[href="#' + jumpId + '"]');
@@ -330,9 +549,12 @@
           fab.textContent = 'Sections';
           fab.title = '';
           fab.setAttribute('aria-label', 'Jump to section');
-          pills.forEach(function(p) {
-            p.classList.remove('sheet-jump-pill--active');
-          });
+          var emptyList = activeJumpList();
+          if (emptyList) {
+            emptyList.querySelectorAll('a.sheet-jump-pill').forEach(function(p) {
+              p.classList.remove('sheet-jump-pill--active');
+            });
+          }
         }
         return;
       }
@@ -345,9 +567,12 @@
       fab.title = label;
       fab.setAttribute('aria-label', 'Current section: ' + label);
 
-      pills.forEach(function(p) {
-        p.classList.toggle('sheet-jump-pill--active', p.getAttribute('href') === '#' + id);
-      });
+      var activeList = activeJumpList();
+      if (activeList) {
+        activeList.querySelectorAll('a.sheet-jump-pill').forEach(function(p) {
+          p.classList.toggle('sheet-jump-pill--active', p.getAttribute('href') === '#' + id);
+        });
+      }
     }
 
     function scheduleSpy() {
@@ -390,7 +615,7 @@
       }
     });
 
-    pills.forEach(function(a) {
+    panel.querySelectorAll('a.sheet-jump-pill').forEach(function(a) {
       a.addEventListener('click', function(e) {
         if (a.classList.contains('sheet-jump-pill--disabled')) {
           e.preventDefault();
@@ -401,9 +626,7 @@
       });
     });
 
-    spyIds.forEach(function(jid) {
-      syncJumpRowUi(jid);
-    });
+    rebuildSpyFromActiveModule();
 
     window.addEventListener('scroll', scheduleSpy, { passive: true });
     window.addEventListener('resize', scheduleSpy, { passive: true });
@@ -411,6 +634,7 @@
 
   initSheetJump();
   window.addEventListener('hashchange', function() {
+    applyModuleFromHash();
     scrollSheetHashIntoView();
     requestAnimationFrame(scheduleSheetJumpSpy);
   });
@@ -419,6 +643,7 @@
    * Disease partial bootstrap — contracts (keep in sync with .cursor/skills/pedsmarx-disease-partials/SKILL.md):
    * - Promise.all order fixes htmls[] indices; changing order requires updating every responses[i].ok, .text(), and assignments below.
    * - htmls[3]+htmls[4] both mount into #disease-preseptal-orbital (preseptal/orbital then bites/pyomyositis).
+   * - htmls[5] mounts into #disease-cap (CAP module).
    * - After innerHTML: initNpPills → initCardDisclosurePrint → initSevNameFitListeners → hash/spy → fonts → dynamic import dose-calc → initDoseCalcPills (do not reorder without checking partial DOM).
    */
   // Fetch requires http(s) or a local static server; file:// often fails.
@@ -427,25 +652,30 @@
     fetch('./diseases/non-purulent-cellulitis/section.html'),
     fetch('./diseases/necrotizing-toxin-mediated-cellulitis/section.html'),
     fetch('./diseases/preseptal-orbital-cellulitis/section.html'),
-    fetch('./diseases/bites-pyomyositis/section.html')
+    fetch('./diseases/bites-pyomyositis/section.html'),
+    fetch('./diseases/cap/section.html')
   ]).then(function(responses) {
-    if (!responses[0].ok || !responses[1].ok || !responses[2].ok || !responses[3].ok || !responses[4].ok) {
-      throw new Error('Failed to load disease sections: ' + responses[0].status + ' / ' + responses[1].status + ' / ' + responses[2].status + ' / ' + responses[3].status + ' / ' + responses[4].status);
+    if (!responses[0].ok || !responses[1].ok || !responses[2].ok || !responses[3].ok || !responses[4].ok || !responses[5].ok) {
+      throw new Error('Failed to load disease sections: ' + responses[0].status + ' / ' + responses[1].status + ' / ' + responses[2].status + ' / ' + responses[3].status + ' / ' + responses[4].status + ' / ' + responses[5].status);
     }
-    return Promise.all([responses[0].text(), responses[1].text(), responses[2].text(), responses[3].text(), responses[4].text()]);
+    return Promise.all([responses[0].text(), responses[1].text(), responses[2].text(), responses[3].text(), responses[4].text(), responses[5].text()]);
   }).then(function(htmls) {
     var pur = document.getElementById('disease-purulent');
     var np = document.getElementById('disease-non-purulent');
     var ntm = document.getElementById('disease-necrotizing-toxin');
     var po = document.getElementById('disease-preseptal-orbital');
+    var cap = document.getElementById('disease-cap');
     pur.innerHTML = htmls[0];
     np.innerHTML = htmls[1];
     ntm.innerHTML = htmls[2];
     /* Preseptal/orbital + bites/pyomyositis share #disease-preseptal-orbital so adjacent .section-block spacing stays correct */
     po.innerHTML = htmls[3] + htmls[4];
+    if (cap) cap.innerHTML = htmls[5];
+    rebuildJumpSpyState();
     initNpPills();
     initCardDisclosurePrint();
     initSevNameFitListeners();
+    applyModuleFromHash();
     scrollSheetHashIntoView();
     requestAnimationFrame(function() {
       scrollSheetHashIntoView();

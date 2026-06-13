@@ -1,0 +1,217 @@
+/*
+ * Top-level module switcher (SSTI | CAP) in header — one .outer container.
+ * Print: only .sheet-module.is-active prints.
+ */
+
+.sheet-module:not(.is-active) {
+  display: none;
+}
+
+.header-title-block {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.35em;
+  min-width: 0;
+  flex: 1;
+  line-height: 1.2;
+}
+
+.header-title-suffix {
+  font-family: 'Space Mono', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a18;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  line-height: inherit;
+}
+
+/* Custom module picker — menu icon left of label; dropdown matches np-pill language */
+.sheet-module-picker {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  min-width: 0;
+  max-width: 100%;
+  vertical-align: baseline;
+}
+
+.sheet-module-picker__trigger {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  line-height: inherit;
+  transition: background 0.15s ease;
+}
+
+.sheet-module-picker__trigger:hover {
+  background: #f9f8f4;
+}
+
+.sheet-module-picker__trigger:focus-visible {
+  outline: 2px solid #5DCAA5;
+  outline-offset: 2px;
+}
+
+.sheet-module-picker.is-open .sheet-module-picker__trigger {
+  background: #f9f8f4;
+}
+
+.sheet-module-picker__icon {
+  display: block;
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  object-fit: contain;
+  opacity: 0.72;
+  align-self: center;
+  transform: translateY(0.06em);
+}
+
+.sheet-module-picker__label {
+  font-family: 'Space Mono', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a18;
+  letter-spacing: 0.03em;
+  line-height: inherit;
+  transition: color 0.15s ease;
+}
+
+.sheet-module-picker__trigger:hover .sheet-module-picker__label,
+.sheet-module-picker.is-open .sheet-module-picker__label {
+  color: #085041;
+}
+
+.sheet-module-picker__menu {
+  position: absolute;
+  z-index: 50;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: min(100%, 20rem);
+  width: max-content;
+  max-width: min(22rem, calc(100vw - 3rem));
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background: #ffffff;
+  border: 1px solid #d9d8d0;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.sheet-module-picker__menu[hidden] {
+  display: none !important;
+}
+
+.sheet-module-picker__option {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.sheet-module-picker__option:hover {
+  background: #f9f8f4;
+  border-color: #e8e7e0;
+}
+
+.sheet-module-picker__option:focus-visible {
+  outline: 2px solid #5DCAA5;
+  outline-offset: 1px;
+}
+
+.sheet-module-picker__option.is-selected {
+  background: #E1F5EE;
+  border-color: #5DCAA5;
+}
+
+.sheet-module-picker__option-text {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.sheet-module-picker__option-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #1a1a18;
+  line-height: 1.35;
+}
+
+.sheet-module-picker__option-abbr {
+  flex-shrink: 0;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #085041;
+  background: #ffffff;
+  border: 1px solid #5DCAA5;
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
+.sheet-module-picker__option.is-selected .sheet-module-picker__option-name {
+  font-weight: 600;
+  color: #085041;
+}
+
+.module-placeholder {
+  padding: 0.25rem 0 0.5rem;
+}
+
+@media (max-width: 640px) {
+  .sheet-module-picker__label,
+  .header-title-suffix {
+    font-size: 14px;
+  }
+
+  .sheet-module-picker__menu {
+    left: 0;
+    right: auto;
+    max-width: calc(100vw - 2.5rem);
+  }
+}
+
+@media print {
+  .sheet-module:not(.is-active) {
+    display: none !important;
+  }
+
+  .sheet-module.is-active {
+    display: block !important;
+  }
+
+  .sheet-module-picker__icon,
+  .sheet-module-picker__menu {
+    display: none !important;
+  }
+
+  .sheet-module-picker__label {
+    padding-bottom: 0;
+  }
+
+  .sheet-module-picker__trigger {
+    pointer-events: none;
+    padding: 0;
+  }
+}

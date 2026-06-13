@@ -2,7 +2,7 @@
 
 **Live sheet:** [https://kuanchen07.github.io/PedSMARxT-cheat-sheet/](https://kuanchen07.github.io/PedSMARxT-cheat-sheet/)
 
-A single-file **PedSMARxT** quick reference for **pediatric skin and soft tissue infection (SSTI)** care: procedures (I&D, cultures), empirical and definitive therapy, and pediatric dosing in one printable-style layout.
+A **PedSMARxT** quick reference for pediatric infectious disease care: procedures, empirical and definitive therapy, and pediatric dosing in one printable-style layout. Use the **header dropdown** to switch between clinical modules (SSTI and CAP).
 
 ## Checks
 
@@ -12,7 +12,9 @@ A single-file **PedSMARxT** quick reference for **pediatric skin and soft tissue
 
 This list tracks what the sheet covers; **content is updated often** as the cheat sheet changes.
 
-The page is organized into five main areas:
+The page is organized into **two modules** (header dropdown). Within **SSTI** or **CAP**, the bottom-right **Sections** control jumps between pathway blocks.
+
+### Skin and Soft Tissue infections (SSTI)
 
 1. **Purulent cellulitis — impetigo / ecthyma / folliculitis**
    - Folliculitis, limited vs extensive impetigo and ecthyma.
@@ -44,3 +46,23 @@ The page is organized into five main areas:
    - **Orbital:** Admit CT with contrast; blood cultures; MRSA **nares PCR**; ID/ophtho and conditional ENT/OMFS — no IC: IV amp-sulbactam, oral step-down ≥72 h with ID; intracranial/abscess triple ceftriaxone + metro + vancomycin per ID.
    - **Unclear** preseptal vs orbital: Ophthalmology; consider CT; proceed per findings.
    - **Bites & pyomyositis** (two column cards below): **Human/cat/dog bites** — pre-emptive prophylaxis within 24 h when indicated (PO amo/clav vs anaphylactic PCN doxy). **Infected bite:** ID/tetanus/rabies considerations; PO amo/clav Q8h or IV amp-sulbactam; PCN allergy doxy. **Pyomyositis:** Blood cultures ×2, MRI, surgery and early drainage; empirical vancomycin; culture-guided MSSA/MRSA/GAS IV options; preceding trauma links to **necrotizing fasciitis** pathway; consider oral step-down when clinically appropriate.
+
+### Community-Acquired Pneumonia (CAP)
+
+Within **CAP**, the bottom-right **Sections** control jumps between pathway blocks (same FAB as SSTI, module-aware).
+
+1. **Uncomplicated CAP**
+   - **Mild / moderate / severe** columns: procedures (doctor); oral or IV therapy with pharmacist dosing; **duration insets** on each severity pathway.
+   - **Mild:** Outpatient PO amoxicillin; PCN-allergy clindamycin or doxycycline; lab — no culture, discharge on oral therapy.
+   - **Moderate:** IV ampicillin (ceftriaxone or clindamycin for PCN allergy); IV-to-PO step-down when afebrile ≥24h.
+   - **Severe / complicated:** Chest US, cultures, MRSA nares PCR, ID/surgery consults; IV amp-sulbactam or ceftriaxone; add vancomycin or linezolid for septic shock, recent influenza, or abscess concern.
+
+2. **Necrotizing and toxin-mediated CAP**
+   - Two side-by-side pathway cards: **necrotizing pneumonia / lung abscess** and **toxic shock / SSSS / toxin-mediated**.
+   - Procedures, empirical regimens (pip/tazo + linezolid; nafcillin + linezolid), culture-guided definitive by GAS / MSSA / MRSA.
+
+3. **CAP with pleural effusion / empyema**
+   - Full-width card (**Complicated** — pneumonia with pleural effusion / empyema): procedures, drain management criteria, pleural fluid studies, **tPA dosing table** by weight band.
+
+4. **Treatment failure**
+   - Full-width card (**Trigger** — clinical worsening despite ≥48–72h appropriate antibiotics at appropriate dose and frequency); consults and imaging; **escalation ladder** by prior oral regimen with PCN-allergy ceftriaxone branch.

@@ -1,6 +1,6 @@
 /*
  * Disease partial overrides — complements styles/main.css.
- * Mirrors diseases/<folder>/section.html: purulent, non-purulent, necrotizing/toxin, preseptal/orbital, bites-pyomyositis.
+ * Mirrors diseases/<folder>/section.html: purulent, non-purulent, necrotizing/toxin, preseptal/orbital, bites/pyomyositis, cap.
  */
 
 /* --- Purulent (furuncle / impetigo) --- */
@@ -155,4 +155,136 @@
 
 @media print {
   .bites-pyomyositis-section .grid.bites-pyomyositis-dual-grid { grid-template-columns: 1fr; }
+}
+
+/* --- Community-Acquired Pneumonia (CAP) --- */
+#disease-cap { margin-top: 0; }
+
+/* Duration inset — bottom of therapy blocks; print expands with card body */
+.duration-inset {
+  margin-top: 8px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: #2a2a28;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #f0efe8;
+  line-height: 1.4;
+}
+
+.cap-uncomplicated-section .section-title { margin-bottom: 1.25rem; }
+.cap-uncomplicated-section .card { overflow: visible; }
+
+.cap-ntm-section .section-title { margin-bottom: 1rem; }
+.cap-ntm-section .card { overflow: visible; }
+
+.cap-ntm-section .grid.cap-dual-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .cap-ntm-section .grid.cap-dual-grid { grid-template-columns: 1fr; }
+}
+
+.cap-ntm-section .card-head {
+  min-height: 4rem;
+  padding: 2px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Full-width specialty cards — card-head label/title like NTM Pattern rows; default card border */
+.cap-wide-card {
+  overflow: visible;
+}
+.cap-wide-card .card-head {
+  min-height: 4rem;
+  padding: 2px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.cap-wide-card--pleural .card-head {
+  background: #E3F2FD;
+  border-bottom-color: #64B5F6;
+}
+.cap-wide-card--pleural .sev-label { color: #1565C0; }
+.cap-wide-card--pleural .sev-name { color: #0D47A1; }
+
+.cap-wide-card--failure .card-head {
+  background: #F3E5F5;
+  border-bottom-color: #CE93D8;
+}
+.cap-wide-card--failure .sev-label { color: #7B1FA2; }
+.cap-wide-card--failure .sev-name { color: #4A148C; }
+
+.cap-panel-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+@media (max-width: 1100px) {
+  .cap-panel-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .cap-panel-grid { grid-template-columns: 1fr; }
+}
+
+.cap-panel-col { min-width: 0; }
+
+.cap-dose-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+  line-height: 1.4;
+  color: #1a1a18;
+}
+.cap-dose-table th,
+.cap-dose-table td {
+  padding: 4px 0;
+  text-align: left;
+  border-bottom: 1px solid #e8e7e0;
+}
+.cap-dose-table th {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #666660;
+}
+.cap-dose-table tr:last-child td { border-bottom: none; }
+
+.cap-escalation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+.cap-escalation-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+}
+.cap-escalation-label {
+  flex: 0 1 42%;
+  min-width: 0;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #666660;
+  line-height: 1.35;
+  padding-top: 4px;
+}
+.cap-escalation-row svg { flex-shrink: 0; margin-top: 6px; }
+
+@media print {
+  .cap-ntm-section .grid.cap-dual-grid,
+  .cap-panel-grid { grid-template-columns: 1fr; }
 }

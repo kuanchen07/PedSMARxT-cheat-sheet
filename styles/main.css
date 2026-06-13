@@ -55,6 +55,22 @@
   letter-spacing: 0.04em;
   color: #a32d2d;
 }
+/* SSTI first pathway — whole module reviewed; sits in .section-title-row opposite title */
+.section-workflow-reviewed {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-shrink: 0;
+  margin-left: auto;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #0f6e56;
+}
+.section-workflow-reviewed__icon {
+  flex-shrink: 0;
+}
 .section-title--review { color: #a32d2d; }
 /* Per-disease .section-title margins + .card { overflow: visible } — styles/diseases.css */
 .divider-dashed { height: 0; border: none; border-top: 1px dashed #c4c2ba; margin: 6px 0 4px; background: none; }
@@ -107,8 +123,20 @@
 .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
 .grid > .card { min-width: 0; }
 /* Dual-column grids + PO column align + card-head min-height bands — styles/diseases.css */
-.card { background: #f9f8f4; border: 1px solid #e8e7e0; border-radius: 10px; overflow: hidden; }
-.card-head { padding: 10px 14px 9px; border-bottom: 1px solid #e8e7e0; }
+.card {
+  --card-radius: 10px;
+  background: #f9f8f4;
+  border: 1px solid #e8e7e0;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+}
+.card-head {
+  padding: 10px 14px 9px;
+  border-bottom: 1px solid #e8e7e0;
+  /* diseases.css sets overflow:visible on cards — head bg must round itself */
+  border-top-left-radius: calc(var(--card-radius) - 1px);
+  border-top-right-radius: calc(var(--card-radius) - 1px);
+}
 .sev-label { font-family: 'Space Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2px; }
 /* Shared max — index.html fitSevName() resets to this via computed font-size */
 .sev-name {

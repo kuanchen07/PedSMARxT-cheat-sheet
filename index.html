@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="./styles/main.css?v=2" />
   <link rel="stylesheet" href="./styles/sheet-modules.css?v=2" />
   <link rel="stylesheet" href="./styles/diseases.css?v=2" />
-  <link rel="stylesheet" href="./styles/sheet-jump.css?v=2" />
+  <link rel="stylesheet" href="./styles/sheet-jump.css?v=3" />
   <link rel="stylesheet" href="./dose-calc/dose-calc.css?v=2" />
 </head>
 <body>
@@ -246,8 +246,45 @@
     });
   }
 
-  var ntmAnchorFlashTimer = null;
-  /* Table 4/5: href=#ntm-section-title; Table 6: href=#section-bites-pyomyositis — data-ntm-flash id → card pulse (CSS .ntm-anchor-flash = 3s) */
+  /* Card pulse after FAB jump or data-ntm-flash cross-link — keep ms in sync with diseases.css animation */
+  var CARD_FLASH_DELAY_MS = 80;
+  var CARD_FLASH_DURATION_MS = 3000;
+  var cardFlashTimer = null;
+
+  function clearCardFlash() {
+    if (cardFlashTimer) {
+      clearTimeout(cardFlashTimer);
+      cardFlashTimer = null;
+    }
+    document.querySelectorAll('.ntm-anchor-flash').forEach(function(c) {
+      c.classList.remove('ntm-anchor-flash');
+    });
+  }
+
+  /* Top-level pathway cards only — grid columns or standalone wide cards */
+  function pathwayCardsInSectionBlock(blk) {
+    if (!blk) return [];
+    return Array.from(blk.querySelectorAll(':scope > .grid > .card, :scope > .card'));
+  }
+
+  function pulsePathwayCards(cards) {
+    if (!cards || !cards.length) return;
+    clearCardFlash();
+    setTimeout(function() {
+      cards.forEach(function(el) {
+        void el.offsetWidth;
+        el.classList.add('ntm-anchor-flash');
+      });
+      cardFlashTimer = setTimeout(function() {
+        cards.forEach(function(el) {
+          el.classList.remove('ntm-anchor-flash');
+        });
+        cardFlashTimer = null;
+      }, CARD_FLASH_DURATION_MS);
+    }, CARD_FLASH_DELAY_MS);
+  }
+
+  /* Table 4/5: href=#ntm-section-title; Table 6: href=#section-bites-pyomyositis — data-ntm-flash id → single card */
   function initNtmAnchorFlash() {
     document.addEventListener('click', function(e) {
       var a = e.target.closest('a.sheet-anchor[data-ntm-flash]');
@@ -256,22 +293,7 @@
       if (!flashId) return;
       var el = document.getElementById(flashId);
       if (!el || !el.classList.contains('card')) return;
-      if (ntmAnchorFlashTimer) {
-        clearTimeout(ntmAnchorFlashTimer);
-        ntmAnchorFlashTimer = null;
-      }
-      document.querySelectorAll('.ntm-anchor-flash').forEach(function(c) {
-        c.classList.remove('ntm-anchor-flash');
-      });
-      /* After hash navigation scrolls, pulse the relevant pathway card */
-      setTimeout(function() {
-        void el.offsetWidth;
-        el.classList.add('ntm-anchor-flash');
-        ntmAnchorFlashTimer = setTimeout(function() {
-          el.classList.remove('ntm-anchor-flash');
-          ntmAnchorFlashTimer = null;
-        }, 3000);
-      }, 80);
+      pulsePathwayCards([el]);
     });
   }
 
@@ -437,6 +459,10 @@
   function sectionBlockForJumpId(id) {
     var el = document.getElementById(id);
     return el ? el.closest('.section-block') : null;
+  }
+
+  function pulsePathwayCardsForJumpId(jumpId) {
+    pulsePathwayCards(pathwayCardsInSectionBlock(sectionBlockForJumpId(jumpId)));
   }
 
   function isJumpSectionScreenHidden(id) {
@@ -622,6 +648,8 @@
           e.stopImmediatePropagation();
           return;
         }
+        var jumpId = (a.getAttribute('href') || '').replace(/^#/, '');
+        if (jumpId) pulsePathwayCardsForJumpId(jumpId);
         setOpen(false);
       });
     });

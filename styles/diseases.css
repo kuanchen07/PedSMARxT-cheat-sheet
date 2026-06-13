@@ -63,7 +63,7 @@
   .ntm-section .grid.ntm-dual-grid { grid-template-columns: 1fr; }
 }
 
-/* After in-sheet jump (#ntm-section-title or #section-bites-pyomyositis) + data-ntm-flash: index adds .ntm-anchor-flash for 3s — keep duration in sync with setTimeout in index.html */
+/* FAB jump + data-ntm-flash cross-links: index adds .ntm-anchor-flash for 3s — keep duration in sync with CARD_FLASH_DURATION_MS in index.html */
 @keyframes ntm-anchor-flash {
   0%, 100% { outline: 0 solid transparent; outline-offset: 0; }
   5% { outline: 3px solid rgba(0, 51, 160, 0.65); outline-offset: 2px; }
@@ -75,8 +75,7 @@
   76% { outline: 2px solid rgba(0, 51, 160, 0.28); outline-offset: 1px; }
   88%, 100% { outline: 0 solid transparent; outline-offset: 0; }
 }
-.ntm-section .card.sev.ntm-anchor-flash,
-.bites-pyomyositis-section .card.sev.ntm-anchor-flash {
+.card.ntm-anchor-flash {
   position: relative;
   z-index: 2;
   animation: ntm-anchor-flash 3s ease-in-out forwards;

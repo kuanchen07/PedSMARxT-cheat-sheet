@@ -58,13 +58,14 @@
   display: none !important;
 }
 /* Jump label + screen-only hide toggle (see index initSheetJump) */
+/* Shrink-wrap each row — width:100% left short labels floating left of long ones in the stack */
 .sheet-jump-pill-list .sheet-jump-row {
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
   justify-content: flex-end;
   gap: 6px;
-  width: 100%;
+  width: max-content;
   max-width: 100%;
 }
 /* Panel jump links: full titles — ellipsis only on FAB */
@@ -179,12 +180,12 @@
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   transition: opacity 0.2s ease, transform 0.22s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
-/* Collapsed control: fixed width + ellipsis for scroll-spy label */
+/* Collapsed control: fit label width (cap at 10.5rem) — fixed width left empty band on short spy labels */
 .sheet-jump-fab.np-pill {
   display: inline-block;
-  width: 10.5rem;
-  max-width: 10.5rem;
-  min-width: 0;
+  width: auto;
+  min-width: 6.5rem;
+  max-width: min(10.5rem, calc(100vw - 2rem));
   flex-shrink: 0;
   overflow: hidden;
   text-overflow: ellipsis;

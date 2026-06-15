@@ -1,6 +1,6 @@
 /*
  * Disease partial overrides — complements styles/main.css.
- * Mirrors diseases/<folder>/section.html: purulent, non-purulent, necrotizing/toxin, preseptal/orbital, bites/pyomyositis, cap.
+ * Mirrors diseases/ssti/* and diseases/cap/* partials: purulent, non-purulent, necrotizing/toxin, preseptal/orbital, bites/pyomyositis, cap pathways.
  */
 
 /* --- Purulent (furuncle / impetigo) --- */
@@ -119,7 +119,7 @@
   justify-content: center;
 }
 
-/* --- Bites & pyomyositis (diseases/bites-pyomyositis; injected after preseptal into #disease-preseptal-orbital) --- */
+/* --- Bites & pyomyositis (diseases/ssti/bites-pyomyositis; injected after preseptal into #disease-preseptal-orbital) --- */
 .bites-pyomyositis-section .section-title { margin-bottom: 1.25rem; }
 .bites-pyomyositis-section .card { overflow: visible; }
 

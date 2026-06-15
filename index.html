@@ -23,7 +23,7 @@
     <div class="header-title-block">
       <div class="sheet-module-picker" id="sheet-module-picker">
         <button type="button" class="sheet-module-picker__trigger" id="sheet-module-trigger" aria-haspopup="listbox" aria-expanded="false" aria-controls="sheet-module-menu">
-          <img class="sheet-module-picker__icon" src="./menu.png" alt="" width="14" height="14" aria-hidden="true" />
+          <img class="sheet-module-picker__icon" src="./logos/menu.png" alt="" width="14" height="14" aria-hidden="true" />
           <span class="sheet-module-picker__label" id="sheet-module-label">Skin and Soft Tissue infection (SSTI)</span>
         </button>
         <ul class="sheet-module-picker__menu" id="sheet-module-menu" role="listbox" aria-label="Infection module" hidden>
@@ -674,22 +674,25 @@
    * Disease partial bootstrap — contracts (keep in sync with .cursor/skills/pedsmarx-disease-partials/SKILL.md):
    * - Promise.all order fixes htmls[] indices; changing order requires updating every responses[i].ok, .text(), and assignments below.
    * - htmls[3]+htmls[4] both mount into #disease-preseptal-orbital (preseptal/orbital then bites/pyomyositis).
-   * - htmls[5] mounts into #disease-cap (CAP module).
+   * - htmls[5]+htmls[6]+htmls[7]+htmls[8] concat into #disease-cap (four CAP pathway partials; sibling .section-block spacing).
    * - After innerHTML: initNpPills → initCardDisclosurePrint → initSevNameFitListeners → hash/spy → fonts → dynamic import dose-calc → initDoseCalcPills (do not reorder without checking partial DOM).
    */
   // Fetch requires http(s) or a local static server; file:// often fails.
   Promise.all([
-    fetch('./diseases/purulent-cellulitis/section.html'),
-    fetch('./diseases/non-purulent-cellulitis/section.html'),
-    fetch('./diseases/necrotizing-toxin-mediated-cellulitis/section.html'),
-    fetch('./diseases/preseptal-orbital-cellulitis/section.html'),
-    fetch('./diseases/bites-pyomyositis/section.html'),
-    fetch('./diseases/cap/section.html')
+    fetch('./diseases/ssti/purulent-cellulitis/section.html'),
+    fetch('./diseases/ssti/non-purulent-cellulitis/section.html'),
+    fetch('./diseases/ssti/necrotizing-toxin-mediated-cellulitis/section.html'),
+    fetch('./diseases/ssti/preseptal-orbital-cellulitis/section.html'),
+    fetch('./diseases/ssti/bites-pyomyositis/section.html'),
+    fetch('./diseases/cap/uncomplicated/section.html'),
+    fetch('./diseases/cap/necrotizing-toxin-mediated/section.html'),
+    fetch('./diseases/cap/pleural-effusion/section.html'),
+    fetch('./diseases/cap/treatment-failure/section.html')
   ]).then(function(responses) {
-    if (!responses[0].ok || !responses[1].ok || !responses[2].ok || !responses[3].ok || !responses[4].ok || !responses[5].ok) {
-      throw new Error('Failed to load disease sections: ' + responses[0].status + ' / ' + responses[1].status + ' / ' + responses[2].status + ' / ' + responses[3].status + ' / ' + responses[4].status + ' / ' + responses[5].status);
+    if (!responses[0].ok || !responses[1].ok || !responses[2].ok || !responses[3].ok || !responses[4].ok || !responses[5].ok || !responses[6].ok || !responses[7].ok || !responses[8].ok) {
+      throw new Error('Failed to load disease sections: ' + responses[0].status + ' / ' + responses[1].status + ' / ' + responses[2].status + ' / ' + responses[3].status + ' / ' + responses[4].status + ' / ' + responses[5].status + ' / ' + responses[6].status + ' / ' + responses[7].status + ' / ' + responses[8].status);
     }
-    return Promise.all([responses[0].text(), responses[1].text(), responses[2].text(), responses[3].text(), responses[4].text(), responses[5].text()]);
+    return Promise.all([responses[0].text(), responses[1].text(), responses[2].text(), responses[3].text(), responses[4].text(), responses[5].text(), responses[6].text(), responses[7].text(), responses[8].text()]);
   }).then(function(htmls) {
     var pur = document.getElementById('disease-purulent');
     var np = document.getElementById('disease-non-purulent');
@@ -701,7 +704,8 @@
     ntm.innerHTML = htmls[2];
     /* Preseptal/orbital + bites/pyomyositis share #disease-preseptal-orbital so adjacent .section-block spacing stays correct */
     po.innerHTML = htmls[3] + htmls[4];
-    if (cap) cap.innerHTML = htmls[5];
+    /* Four CAP partials concat into #disease-cap — preserves .section-block + .section-block sibling spacing */
+    if (cap) cap.innerHTML = htmls[5] + htmls[6] + htmls[7] + htmls[8];
     rebuildJumpSpyState();
     initNpPills();
     initCardDisclosurePrint();

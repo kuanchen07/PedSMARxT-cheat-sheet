@@ -3,7 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PedSMARxT — Skin and Soft Tissue infection (SSTI) cheat sheet</title>
+  <title>PedSMARx workflows</title>
+  <!-- Bookmark/tab icon — same asset as header wordmark; GitHub Pages resolves ./logos/ -->
+  <link rel="icon" href="./logos/PedSMARxT-logo.png" type="image/png" />
+  <link rel="apple-touch-icon" href="./logos/PedSMARxT-logo.png" />
   <link rel="stylesheet" href="./styles/main.css?v=2" />
   <link rel="stylesheet" href="./styles/sheet-modules.css?v=2" />
   <link rel="stylesheet" href="./styles/diseases.css?v=2" />
@@ -11,7 +14,7 @@
   <link rel="stylesheet" href="./dose-calc/dose-calc.css?v=2" />
 </head>
 <body>
-<h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">PedSMARxT cheat sheet — skin and soft tissue infections, community-acquired pneumonia</h2>
+<h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">PedSMARxT workflow — skin and soft tissue infections, community-acquired pneumonia</h2>
 
 <!-- Single .outer — module picker in header; SSTI | CAP bodies swap below — styles/sheet-modules.css -->
 <div class="outer">
@@ -42,7 +45,7 @@
           </li>
         </ul>
       </div>
-      <span class="header-title-suffix" aria-hidden="true">cheat sheet</span>
+      <span class="header-title-suffix" aria-hidden="true">workflow</span>
     </div>
     <!-- Former .header-sub (Pediatric Antibiotic Edition) slot — partner wordmark, far right -->
     <span class="header-affiliate-logo"><img src="./logos/chrome-lab-icon.png" alt="CHRoME LAB" /></span>
@@ -304,8 +307,8 @@
   var MODULE_CAP = 'cap';
   var activeModuleId = MODULE_SSTI;
   var MODULE_PAGE_TITLES = {
-    ssti: 'PedSMARxT — Skin and Soft Tissue infection (SSTI) cheat sheet',
-    cap: 'PedSMARxT — Community-Acquired Pneumonia (CAP) cheat sheet'
+    ssti: 'PedSMARxT — Skin and Soft Tissue infection (SSTI) workflow',
+    cap: 'PedSMARxT — Community-Acquired Pneumonia (CAP) workflow'
   };
   var MODULE_LABELS = {
     ssti: 'Skin and Soft Tissue infection (SSTI)',
@@ -728,7 +731,7 @@
     var pur = document.getElementById('disease-purulent');
     if (pur) {
       var msg = document.createElement('p');
-      msg.textContent = 'Could not load cheat sheet content. Use a local web server (e.g. npx serve) or open the GitHub Pages URL — opening index.html as file:// usually blocks loading partials.';
+      msg.textContent = 'Could not load workflow content. Use a local web server (e.g. npx serve) or open the GitHub Pages URL — opening index.html as file:// usually blocks loading partials.';
       msg.style.cssText = 'color:#A32D2D;padding:1rem;font-family:system-ui,sans-serif;max-width:40rem;';
       pur.appendChild(msg);
     }
